@@ -81,7 +81,7 @@ export default function Sidebar() {
           </NavLink>
         
 
-        <NavLink to="/reports" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
+        <NavLink to="/report" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
           {/* <RiPieChart2Fill className="menu-icon" /> */}
           <HiOutlineDocumentReport className="menu-icon" />
           <span className="menu-text">Reports</span>

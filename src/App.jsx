@@ -1,4 +1,4 @@
-// App.jsx
+
 import React from "react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
@@ -7,6 +7,8 @@ import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
+import TaskPage from "./pages/TaskPage";
+import ReportPage from "./pages/ReportPage";
 
 const router = createBrowserRouter([
   {
@@ -25,16 +27,15 @@ const router = createBrowserRouter([
 
     children: [
       { index: true, element: <Dashboard /> },   // /
-      { path: "dashboard", element: "" }, // /dashboard
+      { path: "dashboard", element: "" }, 
+      {path: "tasks", element: <TaskPage/>},
+      {path: "report", element: <ReportPage/>}
 
-      // You will add more pages here later:
-      // { path: "profile", element: <ProfilePage/> },
-      // { path: "settings", element: <SettingsPage/> },
+
     ],
   },
 
-  // unknown routes → redirect to "/"
-  // { path: "*", element: <Navigate to="/" replace /> }
+  
 ]);
 
 const App = () => <RouterProvider router={router} />;

@@ -48,9 +48,9 @@
   /* fill remaining height and make scrollable */
   height: calc(100vh - var(--navbar-height));
   overflow-y: auto;
-  padding: calc(var(--gutter) * 1) var(--gutter) var(--gutter) var(--gutter);
+  /* padding: calc(var(--gutter) * 1) var(--gutter) var(--gutter) var(--gutter); */
   box-sizing: border-box;
-  background: #f7f7f7;
+  background-color: white;
 }
 
 /* optional: make sure the content inside main is not wider than the viewport minus sidebar */

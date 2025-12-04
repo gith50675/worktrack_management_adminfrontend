@@ -1,0 +1,56 @@
+.report-title-container {
+      overflow-x: hidden;
+  max-width: 1200px;    
+  margin: 0 auto;        
+  padding: 0 20px;   
+}
+.report-title{
+    background-color: #FAF4FC;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  gap:10px;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 16px;
+  margin-top: 30px;
+}
+
+.report-text{
+      font-family: "Inter", sans-serif;
+}
+.report-list{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.reportCard-container{
+    background-color: #FAF4FC;
+     width: 230px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  align-items: center;
+}
+
+.reportCard-title{
+    font-weight: 300px;
+    font-size: 18px;
+    font-style: medium;
+    font-family:inter;
+    align-items: center;
+}
+
+.reportCard-count{
+     font-weight: 100px;
+    font-size: 23px;
+    font-style: medium;
+    font-family:"inter", sans-serif;
+    align-items: centre;
+
+}
