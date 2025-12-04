@@ -1,0 +1,52 @@
+.employee-name-title{
+    display:flex;
+    gap: 30px;
+}
+.arrow{
+    margin-top: 24px;
+}
+.name{
+    font-weight: 500px;
+    font-size: 32px;
+    font-style: medium;
+    font-family: inter;
+}
+.designation{
+    font-weight: 400px;
+    font-size: 15px;
+    font-family: inter;
+
+}
+
+hr{
+   height: 1px;
+    border: 1px;
+    background-color: #D9D7D9;
+    margin-top:20px;
+
+}
+.employee-status-card{
+    background-color: #FAF4FC;
+     width: 230px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.stats_name{
+    font-weight: 400px;
+    font-size: 20px; 
+    font-family: inter;
+}
+.numbers{
+    font-weight: 400px;
+    font-size: 40px; 
+    font-family: inter;
+}
+.employee-status-space{
+    display: flex;
+    justify-content: space-between;
+}

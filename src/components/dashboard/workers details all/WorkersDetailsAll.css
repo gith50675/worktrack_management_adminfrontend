@@ -1,0 +1,35 @@
+.workers-details-all-container{
+    background-color: #f6eefc;
+   
+}
+.wokers-details-all-title-box{
+    display: flex;
+    justify-content: space-between;
+
+}
+.workers-detail-left{
+    padding-top: 20px;
+    display: flex;
+    padding-left:10px ;
+}
+.workers-details-right{
+    display: flex;
+    gap: 20px;
+    padding-right: 30px;
+    padding-top: 20px;
+
+}
+.workers-details-tables {
+    
+}
+.dahboard-table{
+    width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  margin-top: 20px;
+
+    
+}
+.dashboard-th{
+    column-span: 2;
+}

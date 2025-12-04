@@ -1,0 +1,58 @@
+.recent-task-container{
+    width: 550px;
+    Height:326px;
+    background-color: #FAF4FC;
+
+}
+.recent-title{
+    display:flex;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right:30px;
+    padding-top: 10px;
+    margin-top:25px
+}
+.recent-tasks{
+    font-family:inter;
+    font-weight:500px;
+    font-style:medium;
+    font-size: 22px;
+}
+.tasks-details{
+    font-family:inter;
+    font-weight:400px;
+    font-size: 14px;
+    color: #808080;
+}
+hr{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.task-and-status{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.task-status{
+    display: flex;
+    justify-content: space-between;
+     padding:10px;
+    
+}
+.productivity-task{
+    font-family:inter;
+    font-weight:500px;
+    font-style:medium;
+    font-size: 19.68px;
+    
+
+}
+.productivity-task-status{
+      font-family:inter;
+    font-weight:500px;
+    font-style:medium;
+    font-size: 19.68px;
+    background-color: #B981CB;
+    padding: 5px;
+   
+
+}

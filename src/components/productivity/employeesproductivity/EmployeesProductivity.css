@@ -1,0 +1,35 @@
+.productivity-table-heading{
+    background-color: #E4B5F4;
+    color:white;
+    height:56px;
+    border-radius: 20px;
+    margin:0px 30px;
+    font-family: inter;
+    font-weight:500px;
+    font-style: medium;
+    font-size: 15px;
+}
+
+.profile-td{
+    align-items: center;
+    gap:25px;
+    padding-top: 20px;
+}
+.table-container{
+    text-align: center;
+    align-items: center;
+}
+
+.employee-name-datas{
+    padding: 50px;
+}
+.employees-table{
+       width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  margin-top: 20px;
+}
+.employees-th{
+    column-span: 2;
+
+}
