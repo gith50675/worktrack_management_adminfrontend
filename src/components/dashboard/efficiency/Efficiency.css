@@ -1,0 +1,25 @@
+.efficiency-activity-bar{
+    display: flex;
+    gap: 25px;
+    background-color: #FAF4FC   ;
+    height: 159px;
+    width:280px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between ;
+    padding: 0px 40px;
+    margin-top: 30px;
+    margin-left:30px;
+}
+.name-percentage{
+    font-family: inter;
+    font-weight: 400px;
+    font-size: 20px;
+}
+.name-percentage span{
+    font-family: inter;
+    font-weight: 600px;
+    font-size: 30px;
+    font-style:semi bold;
+
+}

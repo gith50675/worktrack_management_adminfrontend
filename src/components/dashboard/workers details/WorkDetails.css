@@ -1,0 +1,85 @@
+.detail-head{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 40px;
+}
+.head-left-side{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+.icon-at{
+    display: flex;
+    gap: 8px;
+}
+.icon-at p{
+    font-family: inter;
+    font-weight: 400px;
+    font-size: 20px;
+    
+}
+.viewall-head{
+    font-family: inter;
+    font-weight: 400px;
+    font-size: 15px;
+    color: #7F799A;
+
+}
+.head-right-side{
+    align-items: center;
+    display: flex;
+
+}
+.user-atwork-head{
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    margin-right: 574px;
+    margin-left: 35px;
+}
+.user-work{
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 35px;
+
+}
+
+.user{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-top: 7px;
+}
+.time-hour{
+    display: flex;
+    gap: 20px;
+    padding-top: 7px;
+    align-items: center;
+
+}
+.bar-container{
+     width: 500px;
+  height: 8px;
+  border-radius: 10px;
+  /* overflow: hidden; */
+  display: flex;
+
+}
+.bar-box{
+     height: 100%;
+  background: #9b5cff;  
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+.bar-value{
+    font-family: inter;
+    font-weight: 400px;
+    font-size: 15px;
+
+
+}
+.bar-time{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
