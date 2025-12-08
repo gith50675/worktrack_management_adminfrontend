@@ -1,29 +1,29 @@
-nav {
+/* ========= Base ========= */
+
+.navbar {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  background-color: #FAF4FC;
   align-items: center;
-  text-align: center;
+  padding: 0 24px;
+  background-color: #faf4fc;
   width: 100%;
   height: 58px; /* matches --navbar-height */
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2000; /* stays above sidebar */
+  z-index: 2000;
+  box-sizing: border-box;
 }
 
-.left-nav {
+.logo-box {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
-
 
 .tron-logo {
   width: 40px;
   height: 40px;
-  margin-left: 50px;
 }
 
 .tron-logo2 {
@@ -31,15 +31,19 @@ nav {
   height: 40px;
 }
 
+/* Search */
+
 .search-box {
   display: flex;
-  background-color: white;
+  align-items: center;
+  background-color: #ffffff;
   border-radius: 20px;
-  width: 500px;
-  height: 35px;
   padding: 7px 10px;
   gap: 5px;
-  align-items: center;
+  height: 35px;
+  width: 500px;
+  max-width: 40vw;    /* prevent overflow on medium screens */
+  min-width: 220px;
 }
 
 .search-icon {
@@ -47,32 +51,48 @@ nav {
   width: 25px;
 }
 
-input {
+.search-input {
   border: none;
   outline: none;
   font-size: 16px;
   width: 100%;
+  background: transparent;
 }
+
+/* Right side */
 
 .notification-box {
   display: flex;
-  gap: 15px;
   align-items: center;
+  gap: 15px;
+}
+
+.notification-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.notification-link.active .notification-text {
+  font-weight: 600;
 }
 
 .notification-icon {
-  height: 30px;
-  width: 25px;
+  height: 24px;
+  width: 24px;
 }
 
 .notification-text {
-  font-style: inter;
+  font-family: inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   font-size: 15px;
-  font-weight: 400 ;
+  font-weight: 400;
   color: black;
-  
-
 }
+
+/* Profile dropdown */
 
 .profile-container {
   position: relative;
@@ -96,6 +116,7 @@ input {
   border-radius: 5px;
   padding: 8px 0;
   text-align: left;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .dropdown-box p {
@@ -112,8 +133,88 @@ input {
   color: red;
   font-weight: 600;
 }
-.setting-navlink{
-  display: flex;
-  text-decoration: none;
-  align-items: center;
+
+/* ========= Tablet (≤ 1024px) ========= */
+
+@media screen and (max-width: 1024px) {
+  .navbar {
+    padding: 0 16px;
+  }
+
+  .search-box {
+    max-width: 50vw;
+  }
+
+  .tron-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .tron-logo2 {
+    width: 70px;
+    height: 32px;
+  }
+}
+
+/* ========= Mobile (≤ 768px) ========= */
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .tron-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .tron-logo2 {
+    display: none; /* hide text logo to save space */
+  }
+
+  .search-box {
+    flex: 1;
+    max-width: none;
+    width: 100%;
+    height: 32px;
+    padding: 4px 8px;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+
+  .notification-text {
+    display: none; /* show only bell icon on mobile */
+  }
+
+  .notification-box {
+    gap: 10px;
+  }
+
+  .profile-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dropdown-box {
+    top: 42px;
+    width: 130px;
+  }
+}
+
+/* ========= Extra small phones (≤ 480px) ========= */
+
+@media screen and (max-width: 480px) {
+  .navbar {
+    padding: 0 8px;
+  }
+
+  .search-box {
+  }
+
+  .notification-box {
+    gap: 8px;
+  }
 }

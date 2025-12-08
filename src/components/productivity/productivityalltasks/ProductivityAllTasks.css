@@ -1,7 +1,167 @@
-.all-tasks{
-    font-family:inter;
-    font-weight:500px;
-    font-style:medium;
-    font-size: 22px;
+/* title */
+.all-tasks-title {
+  font-size: 22px;
+  font-weight: 500;
+  font-family: inter;
+  margin-bottom: 12px;
+  padding-left: 25px;
+  font-style: medium;
+  margin-top: 40px;
+}
 
+/* main card */
+.all-tasks-card {
+  /* background: #ffffff; */
+  /* border-radius: 12px; */
+  margin:0px 20px;
+  box-shadow: 0 2px 10px rgba(15, 15, 15, 0.03);
+  overflow: hidden;
+  /* border: 1px solid #f1f1f1; */
+}
+
+/* main tasks table */
+.all-tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.all-tasks-table thead tr {
+  /* background: #faf5ff; */
+  border-bottom: black;
+  border-bottom-right-radius: 20px;
+}
+
+
+.all-tasks-table td {
+  /* text-align: left; */
+  padding: 12px 20px;
+  font-size: 16.49px;
+  font-weight: 400px;
+  font-family: inter;
+   padding: 15px 90px;
+  /* padding-right: 70px; */
+
+}
+
+.all-tasks-table th {
+  font-weight: 600px;
+  font-family: inter;
+  font-style: semi bold;;
+  font-size: 18.65px;
+  border-bottom: 1px solid  #E9E9E9;
+    /* text-align: left; */
+  padding: 15px 0px;
+  padding-right: 70px;
+}
+
+/* purple highlighted row */
+.tasks-highlight-row {
+  background: #f7e6ff;
+  font-weight: 500;
+}
+
+/* normal rows at bottom */
+.tasks-row {
+  border-top: 1px solid #f2f2f2;
+}
+
+/* cell that holds screenshots + app usage */
+.tasks-details-cell {
+  padding: 0;
+  background: #fafafa;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.tasks-details-wrapper {
+  display: flex;
+  gap: 24px;
+  padding: 20px;
+}
+
+/* Recent Screenshots card */
+.screenshots-card {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 4px rgba(15, 15, 15, 0.03);
+}
+
+.screenshots-header {
+  margin-bottom: 14px;
+}
+
+.screenshots-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.screenshots-subtitle {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.screenshots-list {
+  display: flex;
+  gap: 16px;
+}
+
+.screenshot-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.screenshot-thumb {
+  width: 90px;
+  height: 60px;
+  border-radius: 6px;
+  background: #f3e8ff; /* placeholder block (replace with img if needed) */
+  border: 1px solid #e5e7eb;
+}
+
+.screenshot-time {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Application Usage card */
+.app-usage-card {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 4px rgba(15, 15, 15, 0.03);
+}
+
+.app-usage-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.app-usage-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.app-usage-table th,
+.app-usage-table td {
+  text-align: left;
+  padding: 6px 4px;
+}
+
+.app-usage-table th {
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.app-usage-table td {
+  border-top: 1px solid #f3f4f6;
 }

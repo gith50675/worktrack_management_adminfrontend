@@ -1,35 +1,183 @@
-.workers-details-all-container{
-    background-color: #f6eefc;
-   
+.workers-details-all-container {
+  background-color: #f6eefc;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-.wokers-details-all-title-box{
-    display: flex;
+
+
+.wokers-details-all-title-box {
+    width: 100%;
+  height: 55px;
+  margin-top: 35px;
+  background-color: #faf4fc;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 30px;
+    font-family:inter;
+    font-weight:500px;
+    font-style:medium;
+    font-size: 20px;
     justify-content: space-between;
 
 }
-.workers-detail-left{
-    padding-top: 20px;
-    display: flex;
-    padding-left:10px ;
-}
-.workers-details-right{
-    display: flex;
-    gap: 20px;
-    padding-right: 30px;
-    padding-top: 20px;
 
+.workers-detail-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 10px;
 }
+
+.working-details {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.date-and-status {
+  font-size: 14px;
+  color: #8b8b8b;
+}
+
+.workers-details-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 30px;
+}
+
+.worker-detail-status {
+  font-size: 14px;
+  color: #8b8b8b;
+  text-transform: capitalize;
+}
+
+.worker-detail-dates {
+  font-size: 14px;
+  font-weight: 500;
+}
+
 .workers-details-tables {
-    
-}
-.dahboard-table{
-    width: 100%;
-  border-collapse: collapse;
-  background: #ffffff;
   margin-top: 20px;
-
-    
 }
-.dashboard-th{
-    column-span: 2;
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px; 
+  background: transparent;
+}
+
+.dashboard-header-row {
+  background: #f3e9ff;
+}
+
+.dashboard-th {
+  text-align: left;
+  padding: 14px 20px;
+  font-size: 18.65px;
+  font-family: inter;
+  font-weight: 500;
+  font-style: medium;
+  color: black;
+}
+
+.dashboard-tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(15, 15, 15, 0.03);
+}
+
+.dashboard-td {
+  padding: 14px 20px;
+  font-weight: 400px;
+  font-style: inter;
+  font-size: 16.46px;
+  border-top: 1px solid #f3f3f3;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.dashboard-tr:first-child .dashboard-td:first-child {
+  border-top-left-radius: 12px;
+}
+.dashboard-tr:first-child .dashboard-td:last-child {
+  border-top-right-radius: 12px;
+}
+.dashboard-tr:last-child .dashboard-td:first-child {
+  border-bottom-left-radius: 12px;
+}
+.dashboard-tr:last-child .dashboard-td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffe3e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+
+.status-pill,
+.priority-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-style: inter;
+  font-size: 16.46px;
+  font-weight: 400px;
+  text-transform: capitalize;
+}
+
+.status-pill.in-progress {
+  background: rgba(124, 106, 216, 0.1);
+  color: #7c6ad8;
+}
+
+.status-pill.pending {
+  background: rgba(250, 204, 21, 0.12);
+  color: #a16207;
+}
+
+.status-pill.to-do {
+  background: rgba(148, 163, 184, 0.18);
+  color: #475569;
+}
+
+.status-pill.task-done {
+  background: rgba(34, 197, 94, 0.12);
+  color: #15803d;
+}
+
+.priority-pill.high {
+  background: rgba(248, 113, 113, 0.18);
+  color: #b91c1c;
+}
+
+.priority-pill.medium {
+  background: rgba(74, 222, 128, 0.15);
+  color: #15803d;
+}
+
+.priority-pill.low {
+  background: rgba(96, 165, 250, 0.18);
+  color: #1d4ed8;
 }

@@ -25,7 +25,7 @@ const NewProject = () => {
 
         <div className="newproject-rightform">
            <form action="">
-                <label htmlFor="">Assigned To</label> <br />
+                <label htmlFor="">Assigned to</label> <br />
                 <textarea className='newproject-input'></textarea>
 
                  <div className="date-hour">
@@ -66,5 +66,4 @@ const NewProject = () => {
     </>
   )
 }
-
 export default NewProject
