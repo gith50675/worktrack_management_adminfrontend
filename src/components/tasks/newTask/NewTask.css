@@ -1,0 +1,129 @@
+.newtask-container{
+  display: flex;
+  justify-content: space-between;
+}
+.newtask-title{
+  width: 100%;
+  height: 55px;
+  margin-top: 35px;
+  background-color: #faf4fc;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 30px;
+   font-family:inter;
+    font-weight:500px;
+    font-style:medium;
+    font-size: 20px
+
+}
+.newtask-leftform{
+  margin-left: 20px;
+}
+.newtask-input{
+    border-radius: 2px;
+    background-color:white;
+    width: 500px;
+    height: 50px;
+      border: 1px solid #ded7e2;
+    margin-bottom: 4px;
+    
+}
+.description{
+ min-height: 200px;   
+  width: 500px;         
+  padding: 12px;       
+  font-size: 14px;     
+  border: 1px solid #ded7e2;
+  border-radius: 6px;
+}
+label{
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 20px;
+   font-family:inter;
+    font-weight:400px;
+
+    font-size: 18px
+}
+.newtask-rightform{
+margin-right: 20px;
+}
+.date-hour{
+display: flex;
+justify-content: space-between;
+}
+.date{
+border-radius: 2px;
+    background-color:white;
+    width: 300px;
+    height: 50px;
+    border: 1px solid #ded7e2;
+    margin-bottom: 4px;
+}
+.esthour{
+border-radius: 2px;
+    background-color:white;
+    width: 100px;
+    height: 50px;
+    border: 1px solid #ded7e2;
+    margin-bottom: 4px;
+}
+
+.priority-link-task{
+display:flex;
+gap:20px;
+margin-top:60px;
+}
+.task-priority{
+border-radius: 2px;
+    background-color:white;
+    width: 100px;
+    height: 50px;
+    border: 1px solid #ded7e2;
+    margin-bottom: 4px;  
+   display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+.task-attachment-link{
+border-radius: 2px;
+    background-color:white;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ded7e2;
+    margin-bottom: 4px;
+    display: flex;
+  align-items: center;
+  justify-content: center;    
+}
+.form-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;  
+  gap: 12px;                  
+  margin-top: 30px;  
+       
+}
+
+.cancel-btn {
+  padding: 8px 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+   width: 100px;
+  height: 40px;  
+}
+
+.save-btn {
+  padding: 8px 20px;
+  border-radius: 6px;
+  background: #c68be0;   
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  width: 100px;
+  height: 40px; 
+
+}

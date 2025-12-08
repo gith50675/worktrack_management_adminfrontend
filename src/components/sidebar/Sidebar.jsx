@@ -61,7 +61,7 @@ export default function Sidebar() {
           <span className="menu-text">Tasks</span>
         </NavLink>
 
-        <NavLink to="/kanban board" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
+        <NavLink to="/kanbanBoard" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
           {/* <LuUsers className="menu-icon" /> */}
           <PiKanban className="menu-icon" />
           <span className="menu-text">Kanban Board</span>

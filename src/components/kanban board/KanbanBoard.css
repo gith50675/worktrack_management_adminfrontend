@@ -1,0 +1,29 @@
+/* src/components/kanban board/Kanban/KanbanBoard.css */
+:root { --bg-card:#fbf2fb; --col-gap:18px; }
+
+.kanban-top { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; }
+.kanban-title-text { margin:0; font-size:18px; font-weight:700; }
+.kanban-controls { display:flex; gap:12px; align-items:center; }
+.filter-wrap { display:flex; flex-direction:column; align-items:flex-end; }
+.filter-label { font-size:12px; color:#666; margin-bottom:4px; }
+.filter-select { padding:6px 10px; border-radius:6px; border:1px solid rgba(0,0,0,0.08); background:#fff; font-size:13px; box-shadow:0 4px 10px rgba(0,0,0,0.06); }
+
+.kanban-content { padding:16px; background:#fff; }
+.kanban-wrapper { font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; width:100%; }
+.kanban-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--col-gap); align-items:start; padding:8px; }
+.kanban-column { min-height:320px; }
+.column-header { padding:8px 6px; }
+.column-header h3 { margin:0; font-weight:600; font-size:15px; }
+.column-body { background:transparent; padding:8px; min-height:260px; border-radius:6px; box-shadow:0 0 0 1px rgba(0,0,0,0.04) inset; }
+
+.kanban-card { display:flex; background:var(--bg-card); border-radius:8px; margin-bottom:12px; box-shadow:0 2px 6px rgba(20,20,20,0.06); overflow:hidden; min-height:110px; transition:transform .12s ease; }
+.empty-card { background:linear-gradient(180deg,#fbf2fb,#fcf7fc); opacity:0.55; min-height:110px; border:1px solid rgba(0,0,0,0.03); }
+.card-left { width:8px; border-radius:4px 0 0 4px; margin-right:12px; flex-shrink:0; }
+.card-content { padding:12px; flex:1; font-size:13px; }
+.card-content h4 { margin:0 0 10px 0; font-size:14px; font-weight:700; }
+.card-content p { margin:6px 0; color:#111; font-size:13px; }
+.meta-key { display:inline-block; width:90px; font-weight:600; font-size:13px; }
+.meta-val { font-weight:400; }
+
+@media (max-width:980px) { .kanban-grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px) { .kanban-grid { grid-template-columns:1fr; } .filter-wrap { align-items:flex-start; } }

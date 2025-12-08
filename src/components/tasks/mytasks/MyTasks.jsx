@@ -1,6 +1,7 @@
 import React from 'react'
 import "./MyTasks.css"
 import { FaPlus } from 'react-icons/fa'
+import { Link } from 'react-router-dom';
 
 const MyTasks = () => {
   const tasks = [
@@ -15,10 +16,10 @@ const MyTasks = () => {
       <div className='task-titlebox'>
         <p>My Tasks</p>
 
-        <button className="new-task-btn">
+        <Link to={"/newtask"} className="new-task-btn">
           <img src="Add.svg" className='new-task-icon' alt="" />
           New Task
-        </button>
+        </Link>
       </div>
 
       {/* MAPPING FIXED */}
