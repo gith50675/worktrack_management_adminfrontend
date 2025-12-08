@@ -1,16 +1,21 @@
 nav {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 0 16px;
+  /* Reduced padding, using horizontal only */
   background-color: #FAF4FC;
   align-items: center;
   text-align: center;
   width: 100%;
-  height: 58px; /* matches --navbar-height */
+  height: 58px;
+  /* matches --navbar-height */
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2000; /* stays above sidebar */
+  z-index: 2000;
+  /* stays above sidebar */
+  box-sizing: border-box;
+  /* Ensure padding doesn't affect width */
 }
 
 .left-nav {
@@ -23,7 +28,8 @@ nav {
 .tron-logo {
   width: 40px;
   height: 40px;
-  margin-left: 50px;
+  margin-left: 10px;
+  /* Reduced margin */
 }
 
 .tron-logo2 {
@@ -35,7 +41,14 @@ nav {
   display: flex;
   background-color: white;
   border-radius: 20px;
-  width: 500px;
+  max-width: 400px;
+  /* Limit max width */
+  width: 100%;
+  /* Allow shrinking */
+  flex: 1;
+  /* Allow taking available space */
+  margin: 0 10px;
+  /* spacing */
   height: 35px;
   padding: 7px 10px;
   gap: 5px;
@@ -68,9 +81,9 @@ input {
 .notification-text {
   font-style: inter;
   font-size: 15px;
-  font-weight: 400 ;
+  font-weight: 400;
   color: black;
-  
+
 
 }
 
@@ -112,8 +125,51 @@ input {
   color: red;
   font-weight: 600;
 }
-.setting-navlink{
+
+.setting-navlink {
   display: flex;
   text-decoration: none;
   align-items: center;
+}
+
+/* Hamburger Icon */
+.hamburger-icon {
+  display: none;
+  /* Hidden by default on desktop */
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+  color: #333;
+}
+
+/* Show hamburger on mobile/tablet */
+/* Show hamburger on mobile/tablet */
+@media (max-width: 907px) {
+  .hamburger-icon {
+    display: block;
+  }
+
+  .search-box {
+    /* On very small screens, we might want to hide search or make it very small */
+    width: auto;
+  }
+
+  .notification-text {
+    display: none;
+    /* Hide text on mobile to save space */
+  }
+
+  .tron-logo2 {
+    display: none;
+    /* Optionally hide the second text logo on very small screens to save space */
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .search-box {
+    display: none;
+    /* Hide search bar on very small mobile if needed, or replace with icon */
+  }
 }

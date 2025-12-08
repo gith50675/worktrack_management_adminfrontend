@@ -1,0 +1,41 @@
+.responsive-container {
+  display: grid;
+  gap: 16px; 
+  padding: 16px;
+  /* Mobile Viewport (Max-width: 600px) */
+  grid-template-columns: 1fr;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.block {
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+/* Tablet Viewport (Min-width: 601px and Max-width: 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .responsive-container {
+    padding: 24px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Block A full width */
+  .block-a {
+    grid-column: 1 / -1;
+  }
+  /* B and C will naturally take 1fr each in the second row */
+}
+
+/* Desktop/Web Viewport (Min-width: 1025px) */
+@media (min-width: 1025px) {
+  .responsive-container {
+    padding: 32px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  /* All blocks side-by-side naturally */
+}

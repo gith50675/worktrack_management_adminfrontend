@@ -19,6 +19,7 @@ import NotificationsPage from "./pages/NotificationsPage";
 import DashboardWorkDetails from "./pages/DashboardWorkDetails";
 import KanbanBoardPage from "./pages/KanbanBoardPage";
 import NewTaskPage from "./pages/NewTaskPage";
+import ResponsiveLayout from "./pages/ResponsiveLayout";
 
 
 const App = () =>{
@@ -40,7 +41,9 @@ const router = createBrowserRouter([
       {path: "settings", element: <SettingsPage/>},
       {path:"notifications",element:<NotificationsPage/>},
       {path: "kanbanBoard", element: <KanbanBoardPage/>},
-      {path: "newtask", element:<NewTaskPage/>}
+      {path: "newtask", element:<NewTaskPage/>},
+      {path: "responsive", element:<ResponsiveLayout/>}
+      
     ],
      
   },

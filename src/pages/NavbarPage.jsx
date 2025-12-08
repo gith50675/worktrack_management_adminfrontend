@@ -1,10 +1,10 @@
 import React from 'react'
 import Navbar from "../components/navbar/Navbar"
 
-const NavbarPage = () => {
+const NavbarPage = ({ toggleSidebar }) => {
   return (
     <div>
-      <Navbar/>
+      <Navbar toggleSidebar={toggleSidebar} />
     </div>
   )
 }

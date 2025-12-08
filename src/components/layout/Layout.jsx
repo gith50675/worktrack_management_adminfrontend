@@ -6,14 +6,29 @@ import SidebarPage from "../../pages/SidebarPage";
 import "./Layout.css";
 
 const Layout = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <>
-      <aside className="app-sidebar">
+      <div
+        className={`sidebar-overlay ${isSidebarOpen ? "open" : ""}`}
+        onClick={closeSidebar}
+      />
+
+      <aside className={`app-sidebar ${isSidebarOpen ? "open" : ""}`}>
         <SidebarPage />
       </aside>
 
       <header className="app-navbar">
-        <NavbarPage />
+        <NavbarPage toggleSidebar={toggleSidebar} />
       </header>
 
       <main className="app-main">
