@@ -1,21 +1,20 @@
 import React from 'react'
-import "./NewProject.css"
 
-const NewProject = () => {
+const NewTask = () => {
   return (
-    <>
-    <div className="newproject-title">
-            New Project
+    <div>
+        <div className="newtask-title">
+            New Task
         </div>
-    <div className="newproject-container">
+    <div className="newtask-container">
         
-        <div className="newproject-leftform">
+        <div className="newtask-leftform">
             <form action="">
-                <label htmlFor="">Project Name</label> <br />
-                <input type="text" className='newproject-input'/>
+                <label htmlFor="">Task Name</label> <br />
+                <input type="text" className='newtask-input'/>
 
-                 <label htmlFor="">Company Name</label> <br />
-                  <input type="text" className='newproject-input'/>
+                 {/* <label htmlFor="">Company Name</label> <br />
+                  <input type="text" className='newproject-input'/> */}
 
 
                  <label htmlFor="">Description</label> <br />
@@ -23,10 +22,10 @@ const NewProject = () => {
             </form>
         </div>
 
-        <div className="newproject-rightform">
+        <div className="newtask-rightform">
            <form action="">
-                <label htmlFor="">Assigned To</label> <br />
-                <textarea className='newproject-input'></textarea>
+                <label htmlFor=""> Assigned To</label> <br />
+                <textarea className='newtask-input'></textarea>
 
                  <div className="date-hour">
                 <div className="dates">
@@ -39,14 +38,14 @@ const NewProject = () => {
                 </div>
               </div>
 
-              <div className="priority-link-project">
-                <div className="project-priority">
+              <div className="priority-link-task">
+                <div className="task-priority">
                 Prority
                 </div>
-                <div className="project-attachment-link">
+                <div className="task-attachment-link">
                    <img src="Vector.svg" alt="" />
                 </div>
-                <div className="project-attachment-link">
+                <div className="task-attachment-link">
                    <img src="link.svg" alt="" />
                 
                 </div>
@@ -63,8 +62,8 @@ const NewProject = () => {
   <button className="save-btn">Save</button>
 </div>
 
-    </>
+    </div>
   )
 }
 
-export default NewProject
+export default NewTask

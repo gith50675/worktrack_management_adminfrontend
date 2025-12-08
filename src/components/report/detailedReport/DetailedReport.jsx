@@ -3,6 +3,7 @@ import "./DetailedReport.css"
 
 const DetailedReport = () => {
   return (
+    <>
     <div className='detailed-report-title'>
             <div className='detailed-report-head'>Detailed Report</div>
             <div className="report-details-box">
@@ -15,7 +16,21 @@ const DetailedReport = () => {
                 <button className='detailed-report-btn'><img src="Vector (4).svg" alt="" />Export</button>
             </div>
             
-    </div>
+      </div>
+
+                     <table >
+          <tr>
+            <th>Project Name</th>
+            <th>Task Count</th>
+            <th>Dead Line</th>
+            <th>Status</th>
+            <th>Completed</th>
+          </tr>
+
+       </table>
+      
+
+    </>
   )
 }
 

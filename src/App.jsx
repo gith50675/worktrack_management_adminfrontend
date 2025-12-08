@@ -17,6 +17,8 @@ import EmployeeProductivityPage from "./pages/EmployeeProductivityPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import DashboardWorkDetails from "./pages/DashboardWorkDetails";
+import KanbanBoardPage from "./pages/KanbanBoardPage";
+import NewTaskPage from "./pages/NewTaskPage";
 
 
 const App = () =>{
@@ -36,7 +38,9 @@ const router = createBrowserRouter([
       {path:"employeeproductivity",element:<EmployeeProductivityPage/>},
       {path: "report", element: <ReportPage/>},
       {path: "settings", element: <SettingsPage/>},
-      {path:"notifications",element:<NotificationsPage/>}  
+      {path:"notifications",element:<NotificationsPage/>},
+      {path: "kanbanBoard", element: <KanbanBoardPage/>},
+      {path: "newtask", element:<NewTaskPage/>}
     ],
      
   },
