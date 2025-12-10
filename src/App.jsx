@@ -21,6 +21,7 @@ import KanbanBoardPage from "./pages/KanbanBoardPage";
 import NewTaskPage from "./pages/NewTaskPage";
 import ResponsiveLayout from "./pages/ResponsiveLayout";
 import TaskDetailsPage from "./pages/TaskDetailsPage";
+import { ToastContainer } from "react-toastify";
 
 
 const App = () =>{
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
     element: <Layout />,       // sidebar + navbar fixed
     children: [
       { index:true, element:<Dashboard /> },  
+      {path: "dashboard", element: <Dashboard />},    
       {path:"workersdetail",element:<DashboardWorkDetails/>},
       {path: "tasks", element: <TaskPage/>},
       {path:"projects",element:<ProjectsPage/>},
@@ -54,6 +56,11 @@ const router = createBrowserRouter([
   
 ]);
 
- return <RouterProvider router={router} />;
+ return (
+ <>
+ <RouterProvider router={router} />;
+ <ToastContainer position="top-right" autoClose={2000} theme="colored"/>
+ </>
+ )
 }
 export default App;
