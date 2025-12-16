@@ -121,3 +121,97 @@ border-radius: 2px;
   height: 40px; 
 
 }
+@media (max-width: 1024px) {
+  .project-detail-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .project-detail-leftform,
+  .project-detail-rightform {
+    margin: 0 20px;
+  }
+
+  .project-detail-input,
+  .description {
+    width: 100%;
+  }
+
+  .date {
+    width: 100%;
+  }
+
+  .esthour {
+    width: 100%;
+  }
+
+  .date-hour {
+    gap: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .project-detail-title {
+    font-size: 18px;
+    padding: 0 16px;
+  }
+
+  .project-detail-container {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .project-detail-leftform,
+  .project-detail-rightform {
+    margin: 0 16px;
+  }
+
+  .project-detail-input,
+  .description {
+    width: 100%;
+  }
+
+  .date-hour {
+    flex-direction: column;
+  }
+
+  .date,
+  .esthour {
+    width: 100%;
+  }
+
+  .link-project {
+    justify-content: flex-start;
+    margin-top: 30px;
+  }
+
+  .form-buttons {
+    padding: 0 16px;
+  }
+}
+@media (max-width: 480px) {
+  label {
+    font-size: 14px;
+  }
+
+  .project-detail-input,
+  .date,
+  .esthour {
+    height: 44px;
+  }
+
+  .description {
+    min-height: 140px;
+  }
+
+  .project-attachment-link {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    width: 90px;
+    height: 38px;
+    font-size: 14px;
+  }
+}
