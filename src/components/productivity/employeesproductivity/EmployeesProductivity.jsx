@@ -1,50 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./EmployeesProductivity.css";
 
 const EmployeesProductivity = () => {
   const navigate = useNavigate();
+  const [datas, setDatas] = useState([]);
 
-  const datas = [
-    { image: "/employee pic.svg", name: "John", email: "john@gmail.com", time: "6hr 54m", efficiency: "8hr", percent: 80 },
-    { image: "/employee pic.svg", name: "John", email: "john@gmail.com", time: "6hr 54m", efficiency: "8hr", percent: 65 },
-    { image: "/employee pic.svg", name: "John", email: "john@gmail.com", time: "6hr 54m", efficiency: "8hr", percent: 75 },
-    // …repeat as you like
-  ];
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/admin_app/employees_productivity", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setDatas(data.users || []);
+      })
+      .catch((err) => {
+        console.error("Failed to load employees", err);
+      });
+  }, []);
 
-  const handleRowClick = () => {
-    navigate("/employeeproductivity");
+  const handleRowClick = (id) => {
+    navigate(`/employeeproductivity/${id}`);
   };
 
   return (
-    <>
-      <div className="table-container">
-        <table className="employees-table">
-          <thead>
-            <tr className="productivity-table-heading">
-              <th className="employees-th">User</th>
-              <th className="employees-th">Email</th>
-              <th className="employees-th">Today</th>
-              <th className="employees-th">Efficiency</th>
-            </tr>
-          </thead>
+    <div className="table-container">
+      <table className="employees-table">
+        <thead>
+          <tr className="productivity-table-heading">
+            <th className="employees-th">User</th>
+            <th className="employees-th">Email</th>
+            <th className="employees-th">Today</th>
+            <th className="employees-th">Efficiency</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            {datas.map((emplydata, index) => (
+        <tbody>
+          {datas.length === 0 ? (
+            <tr>
+              <td colSpan="4" style={{ textAlign: "center" }}>
+                No users found
+              </td>
+            </tr>
+          ) : (
+            datas.map((emplydata) => (
               <tr
                 className="employee-name-datas"
-                key={index}
-                onClick={handleRowClick}
+                key={emplydata.id}
+                onClick={() => handleRowClick(emplydata.id)}
               >
                 <td className="profile-td">
-                  <img src={emplydata.image} alt={emplydata.name} />
+                  <img src="/employee pic.svg" alt={emplydata.name} />
                   <span className="img-span">{emplydata.name}</span>
                 </td>
 
                 <td>{emplydata.email}</td>
                 <td>{emplydata.time}</td>
 
-                {/* Efficiency cell with violet bar + 8hr text */}
                 <td>
                   <div className="efficiency-cell">
                     <div className="efficiency-bar-track">
@@ -53,15 +67,17 @@ const EmployeesProductivity = () => {
                         style={{ width: `${emplydata.percent}%` }}
                       />
                     </div>
-                    <span className="efficiency-text">{emplydata.efficiency}</span>
+                    <span className="efficiency-text">
+                      {emplydata.efficiency}
+                    </span>
                   </div>
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
