@@ -1,105 +1,104 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./TaskDetails.css";
+import api from "../../../api/api";
 
 const TaskDetails = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [task, setTask] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchTaskDetails();
+  }, []);
+
+  const fetchTaskDetails = async () => {
+    try {
+      const response = await api.get(`admin_app/view_tasks`);
+      const foundTask = response.data.tasks.find(
+        (t) => t.id === Number(id)
+      );
+      setTask(foundTask);
+    } catch (error) {
+      console.error("Failed to load task", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (!task) return <p>Task not found</p>;
+
   return (
     <div className="taskdetails-page">
-
-      {/* Header / Title box (keeps your original structure) */}
       <div className="taskdetails-titlebox">
         <p className="taskdetails-text">Task Details</p>
       </div>
 
-      {/* Main grid */}
       <div className="taskdetails-grid">
-
-        {/* LEFT COLUMN */}
         <div className="task-left">
-          {/* Task Name */}
           <div className="section">
-            <label htmlFor="taskName" className="label">Task Name</label>
+            <label className="label">Task Name</label>
             <input
-              id="taskName"
               className="taskname-input"
-              type="text"
-              placeholder="Design Landing Page"
+              value={task.task_name}
+              disabled
             />
           </div>
 
-          {/* Description */}
           <div className="section">
-            <label htmlFor="description" className="label">Description</label>
+            <label className="label">Description</label>
             <textarea
-              id="description"
               className="textarea"
               rows="6"
-              placeholder="Create a visually appealing landing page that effectively presents the app’s core features and adapts seamlessly across all devices."
+              value={task.description || ""}
+              disabled
             />
-          </div>
-
-          {/* Discussion */}
-          <div className="discussion-section">
-            <label className="discussion-text">Discussion</label>
-            <div className="discussion-card">
-              <div className="avatar">D</div>
-              <textarea
-                className="comment-input"
-                placeholder="Add a comment"
-                rows="3"
-              />
-            </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN / SIDEBAR */}
         <aside className="task-right">
           <div className="right-block">
             <div className="mini-label">Assigned to</div>
-            <div className="right-value">Project Lead</div>
+            <div className="right-value">{task.assigned_by}</div>
           </div>
 
           <div className="two-col">
             <div>
               <div className="mini-label">Priority</div>
-              <div className="priority-badge high">High</div>
+              <div className={`priority-badge ${task.priority.toLowerCase()}`}>
+                {task.priority}
+              </div>
             </div>
 
             <div>
               <div className="mini-label">Due Date</div>
-              <div className="right-value">Jul 17</div>
+              <div className="right-value">{task.due_date}</div>
             </div>
           </div>
 
           <div className="two-col">
             <div>
               <div className="mini-label">Status</div>
-              <div className="right-value">In Progress</div>
+              <div className="right-value">{task.status}</div>
             </div>
 
             <div>
               <div className="mini-label">Effort Hours</div>
-              <div className="right-value">5hr</div>
-            </div>
-          </div>
-
-          <div className="two-col">
-            <div>
-              <div className="mini-label">Links</div>
-              <button className="icon-btn" aria-label="links">🔗</button>
-            </div>
-
-            <div>
-              <div className="mini-label">Attachments</div>
-              <button className="icon-btn" aria-label="attachments">📎</button>
+              <div className="right-value">
+                {task.working_hours || "—"}
+              </div>
             </div>
           </div>
         </aside>
       </div>
 
-      {/* Action buttons */}
       <div className="action-row">
-        <button className="btn cancel">Cancel</button>
-        <button className="btn save">Save</button>
+        <button className="btn cancel" onClick={() => navigate("/tasks")}>
+          Back
+        </button>
       </div>
     </div>
   );

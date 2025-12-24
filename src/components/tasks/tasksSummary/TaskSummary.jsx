@@ -26,9 +26,10 @@ const TaskSummary = () => {
   const fetchTasks = async () => {
     try {
       const response = await api.get("admin_app/view_tasks");
-      setTasks(response.data.tasks);
+      setTasks(response.data.tasks || []); // ✅ SAFE
     } catch (error) {
       console.error("Error fetching tasks:", error);
+      setTasks([]); // ✅ fallback
     }
   };
 
@@ -55,46 +56,55 @@ const TaskSummary = () => {
         </thead>
 
         <tbody>
-          {tasks.map((task, index) => (
-            <tr key={index}>
-              <td>{task.task_name}</td>
-
-              <td>
-                <span className={`priority-pill ${task.priority.toLowerCase()}`}>
-                  {task.priority}
-                </span>
-              </td>
-
-              <td>{task.due_date}</td>
-
-              <td
-                className={`status ${task.status
-                  .toLowerCase()
-                  .replace(" ", "-")}`}
-              >
-                {task.status}
-              </td>
-
-              <td>{task.assigned_by}</td>
-
-              {/* ACTION MENU */}
-              <td className="actions" ref={menuRef}>
-                <button
-                  className="action-menu"
-                  onClick={() => toggleMenu(index)}
-                >
-                  ⋮
-                </button>
-
-                {openMenuIndex === index && (
-                  <div className="dropdown">
-                    <button>View</button>
-                    <button>Edit</button>
-                  </div>
-                )}
+          {tasks.length === 0 ? (
+            <tr>
+              <td colSpan="6" style={{ textAlign: "center" }}>
+                No tasks found
               </td>
             </tr>
-          ))}
+          ) : (
+            tasks.map((task, index) => (
+              <tr key={index}>
+                <td>{task.task_name}</td>
+
+                <td>
+                  <span
+                    className={`priority-pill ${task.priority?.toLowerCase()}`}
+                  >
+                    {task.priority}
+                  </span>
+                </td>
+
+                <td>{task.due_date}</td>
+
+                <td
+                  className={`status ${task.status
+                    ?.toLowerCase()
+                    .replace(" ", "-")}`}
+                >
+                  {task.status}
+                </td>
+
+                <td>{task.assigned_by}</td>
+
+                <td className="actions">
+                  <button
+                    className="action-menu"
+                    onClick={() => toggleMenu(index)}
+                  >
+                    ⋮
+                  </button>
+
+                  {openMenuIndex === index && (
+                    <div className="dropdown" ref={menuRef}>
+                      <button>View</button>
+                      <button>Edit</button>
+                    </div>
+                  )}
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

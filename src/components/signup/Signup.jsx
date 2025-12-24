@@ -1,8 +1,8 @@
-// src/components/auth/Signup.jsx
+
 import React, { useState } from "react";
 import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../api/api"; // your axios instance
+import api from "../../api/api"; 
 import { toast } from "react-toastify";
 
 const Signup = () => {
