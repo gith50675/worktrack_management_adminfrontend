@@ -13,37 +13,32 @@ const Projects = () => {
   const menuRef = useRef(null);
 
 
-  useEffect(() => {
-    let url = "http://127.0.0.1:8000/admin_app/view_projects?";
+useEffect(() => {
+  let url = "http://127.0.0.1:8000/admin_app/view_projects";
 
-    if (filterStatus !== "All") {
-      url += `status=${encodeURIComponent(filterStatus)}&`;
-    }
+  if (filterStatus !== "All") {
+    url += `?status=${encodeURIComponent(filterStatus)}`;
+  }
 
-    if (sortMode === "Due Date") {
-      url += "sort=due_date";
-    } else if (sortMode === "Name") {
-      url += "sort=name";
-    }
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      const backendProjects = data.projects || [];
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        const backendProjects = data.id || [];
+      const mapped = backendProjects.map((p) => ({
+        id: p.id,
+        work: p.Project_Name,
+        comapny: p.Company_Name,
+        status: p.Status,
+        time: p.Due_Date ? `Due ${p.Due_Date}` : "No date",
+        progress: "60",
+      }));
 
-        const mapped = backendProjects.map((p) => ({
-          id: p.id,
-          work: p.Project_Name,
-          comapny: p.Company_Name,
-          status: p.Status,
-          time: p.Due_Date ? `Due ${p.Due_Date}` : "No date",
-          progress: "60",
-        }));
+      setProjects(mapped);
+    })
+    .catch((err) => console.error("Failed to load projects", err));
+}, [filterStatus, sortMode]);
 
-        setProjects(mapped);
-      })
-      .catch((err) => console.error("Failed to load projects", err));
-  }, [filterStatus, sortMode]);
 
   /* =========================
      Close action menu on outside click

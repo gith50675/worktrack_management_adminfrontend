@@ -7,16 +7,16 @@ const ProjectDetail = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    if (!id) return;
+  if (!id) return;
 
-    fetch(`http://127.0.0.1:8000/admin_app/update_projects/${id}/`)
-      .then(res => {
-        if (!res.ok) throw new Error(res.status);
-        return res.json();
-      })
-      .then(res => setData(res))
-      .catch(err => console.error("Fetch error:", err));
-  }, [id]);
+  fetch(`http://127.0.0.1:8000/admin_app/view-project/${id}/`)
+    .then(res => {
+      if (!res.ok) throw new Error(res.status);
+      return res.json();
+    })
+    .then(res => setData(res.project))   // IMPORTANT
+    .catch(err => console.error("Fetch error:", err));
+}, [id]);
 
   const openLink = () => {
     if (!data?.Links) return;
