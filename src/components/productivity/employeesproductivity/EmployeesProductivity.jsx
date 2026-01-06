@@ -5,25 +5,31 @@ import "./EmployeesProductivity.css";
 const EmployeesProductivity = () => {
   const navigate = useNavigate();
   const [datas, setDatas] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/admin_app/employees_productivity", {
+    fetch("http://127.0.0.1:8000/admin_app/employees_productivity/", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access")}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("API RESPONSE 👉", data);
         setDatas(data.users || []);
       })
       .catch((err) => {
         console.error("Failed to load employees", err);
-      });
+        setDatas([]);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const handleRowClick = (id) => {
     navigate(`/employeeproductivity/${id}`);
   };
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="table-container">
@@ -37,7 +43,7 @@ const EmployeesProductivity = () => {
           </tr>
         </thead>
 
-        <tbody>
+        <tbody >
           {datas.length === 0 ? (
             <tr>
               <td colSpan="4" style={{ textAlign: "center" }}>
@@ -64,7 +70,7 @@ const EmployeesProductivity = () => {
                     <div className="efficiency-bar-track">
                       <div
                         className="efficiency-bar-fill"
-                        style={{ width: `${emplydata.percent}%` }}
+                        style={{ width: `${emplydata.percent || 0}%` }}
                       />
                     </div>
                     <span className="efficiency-text">

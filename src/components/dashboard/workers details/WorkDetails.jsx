@@ -1,13 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./WorkDetails.css"
 import { NavLink } from "react-router-dom"
+import api from "../../../api/api"
 
 const WorkDetails = () => {
-  const workdetail = [
-    { icon: "dates icon.svg", name: "John",   hour: "6h 48m", time: "8h",  fill: "85%" },
-    { icon: "dates icon.svg", name: "Jessica",hour: "6h 20m", time: "8h",  fill: "65%" },
-    { icon: "dates icon.svg", name: "David",  hour: "6h 11m", time: "8h",  fill: "80%" },
-  ]
+
+  const [rows, setRows] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchTasks()
+  }, [])
+
+  const fetchTasks = async () => {
+    try {
+      const res = await api.get("admin_app/view_tasks")
+
+      // convert tasks → users (first assigned user shown)
+      const formatted = res.data.tasks.map(t => ({
+        name: t.assigned_to?.length > 0 
+              ? `${t.assigned_to[0].first_name} ${t.assigned_to[0].last_name}`
+              : "Unassigned",
+
+        hour: t.working_hours ? `${t.working_hours}h` : "0h",
+
+        time: "8h",
+
+        fill: t.working_hours 
+              ? `${Math.min((t.working_hours / 8) * 100, 100)}%`
+              : "0%"
+      }))
+
+      setRows(formatted.slice(0,3))   // only 3 users like your UI
+    } catch (err) {
+      console.log("Failed to load work details", err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) return <p>Loading...</p>
 
   return (
     <div className="work-detail-container">
@@ -33,7 +65,7 @@ const WorkDetails = () => {
         <div className="at-work-head">At Work</div>
       </div>
 
-      {workdetail.map((row, index) => (
+      {rows.map((row, index) => (
         <div className="user-work" key={index}>
           <div className="left-user">
             <div className="user">
@@ -45,13 +77,14 @@ const WorkDetails = () => {
           <div className='right-atwork'>
             <div className="time-hour">
               <p>{row.hour}</p>
+
               <div className="bar-time">
                 <div className="bar-container">
-                  {/* violet progress fill */}
                   <div className="bar-box" style={{ width: row.fill }} />
                 </div>
                 <div className='bar-value'>{row.time}</div>
               </div>
+
             </div>
           </div>
         </div>

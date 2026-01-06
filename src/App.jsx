@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       {path:"newproject",element:<NewProjectPage/>},
       {path:"projectdetail/:id",element:<ProjectDetailPage/>},
       {path:"productivity",element:<Productivity/>},
-      {path:"employeeproductivity",element:<EmployeeProductivityPage/>},
+      {path:"/employeeproductivity/:id",element:<EmployeeProductivityPage/>},
       {path: "report", element: <ReportPage/>},
       {path: "settings", element: <SettingsPage/>},
       {path:"notifications",element:<NotificationsPage/>},
