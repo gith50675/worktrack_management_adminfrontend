@@ -1,69 +1,48 @@
 /* Layout.css */
 
-/* constants */
-:root {
-  --sidebar-width: 300px;
-  --navbar-height: 58px;
-  --gutter: 16px;
-}
-
-/* sidebar fixed on the left */
 .app-sidebar {
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   width: var(--sidebar-width);
-  min-width: var(--sidebar-width);
-  background: #ffffff;
-  border-right: 1px solid #e6e6e6;
-  z-index: 40;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--glass-border);
+  z-index: 1000;
   overflow-y: auto;
-  /* so sidebar can scroll if too tall */
-  padding: 12px;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  /* placeholder */
+  transition: var(--transition-standard);
+  box-shadow: var(--shadow-soft);
 }
 
-/* navbar fixed at top, but shifted right so it doesn't overlay the sidebar */
 .app-navbar {
   position: fixed;
   left: var(--sidebar-width);
-  /* start after sidebar */
   right: 0;
   top: 0;
   height: var(--navbar-height);
   display: flex;
   align-items: center;
-  padding: 0 16px;
-  border-bottom: 1px solid #ddd;
-  background: #fff;
-  z-index: 50;
-  /* above sidebar content if overlapping */
+  padding: 0 32px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 900;
   box-sizing: border-box;
+  transition: var(--transition-standard);
 }
 
-/* main content area that sits to the right of sidebar and below navbar */
 .app-main {
-  /* push content to the right of the sidebar */
   margin-left: var(--sidebar-width);
-  /* push content below the navbar */
   margin-top: var(--navbar-height);
-  /* fill remaining height and make scrollable */
-  height: calc(100vh - var(--navbar-height));
-  overflow-y: auto;
-  /* padding: calc(var(--gutter) * 1) var(--gutter) var(--gutter) var(--gutter); */
+  min-height: calc(100vh - var(--navbar-height));
+  background-color: var(--bg-main);
   box-sizing: border-box;
-  background-color: white;
+  padding: 0;
+  /* Components provide their own padding if needed */
+  transition: var(--transition-standard);
 }
 
-/* optional: make sure the content inside main is not wider than the viewport minus sidebar */
-.app-main>* {
-  max-width: calc(100% - 0px);
-}
-
-/* small responsive tweak: collapse sidebar on small screens */
-/* Sidebar Overlay (Backdrop) */
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -71,11 +50,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 45;
-  /* Below sidebar (50) but above everything else */
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 950;
   opacity: 0;
   transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
 }
 
 .sidebar-overlay.open {
@@ -83,40 +62,23 @@
   opacity: 1;
 }
 
-/* Responsive Breakpoint (around 907px as requested) */
-@media (max-width: 907px) {
-  :root {
-    /* We don't remove sidebar-width entirely so content styling (if needed) remains consistent, 
-       but for layout purposes we'll handle margins manually below */
-    --sidebar-width: 0px;
-  }
-
+@media (max-width: 1024px) {
   .app-sidebar {
-    /* Fixed position is already set, but now we hide it off-screen */
     width: 260px;
-    /* Might want a slightly smaller sidebar on mobile */
-    min-width: 260px;
     transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-    z-index: 60;
-    /* Higher than navbar */
+    z-index: 1100;
   }
 
   .app-sidebar.open {
     transform: translateX(0);
-    display: block;
-    /* ensure it's visible */
   }
 
   .app-navbar {
     left: 0;
     width: 100%;
-    z-index: 50;
   }
 
   .app-main {
     margin-left: 0;
-    width: 100%;
   }
 }

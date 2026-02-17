@@ -1,180 +1,195 @@
-
 .signupmain {
   min-height: 100vh;
-  background: linear-gradient(to right, #ffffff 40%, #e1b4f0 40%);
+  background: #f8fafc;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 60px 20px;
-  box-sizing: border-box;
 }
 
 .signupcontainer {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1000px;
   display: flex;
+  background: #ffffff;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   position: relative;
-  align-items: center;
-  justify-content: center;   /* NEW: center the whole block */
-  gap: 0;
-  margin-left: 0;            /* CHANGED: remove hard left shift */
 }
 
-
-
 .signup-left-section {
-  flex: 0 0 420px;        
-  height: 520px;
-  background: linear-gradient(to top right, #e8cbf2, #e6b6f6, #e399fc);
-  border-radius: 22px;
+  flex: 0 0 450px;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-purple) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px;
-  box-sizing: border-box;
-  box-shadow: none;
-  z-index: 1;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-left-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 65%);
+  animation: rotateOriginal 25s linear infinite;
+}
+
+@keyframes rotateOriginal {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .signup-logo-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 340px;      /* a bit taller so the logo can breathe */
+  z-index: 2;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-
-.signup-logo-box .tron-logo {
-  width: 260px;       
-  height: 250px;
-  object-fit: contain;
-  display: block;
+.signup-logo-box:hover {
+  transform: scale(1.08) rotate(-2deg);
 }
 
-
+.tron-logo {
+  max-width: 300px;
+  height: auto;
+}
 
 .signup-right-section {
-  flex: 1 1 auto;
+  flex: 1;
+  padding: 60px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin-left: -180px;   
-  z-index: 2;
-  pointer-events: auto;
-  
+  background: var(--bg-card);
 }
-
 
 .signup-form-card {
-  width: 600px;
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 36px 48px;
-  box-sizing: border-box;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  min-height: 420px;
+  width: 100%;
 }
 
-.signup-login-and-signup {
-  display: flex;
-  gap: 36px;
-  justify-content: center;
-  align-items: baseline;
-  margin-bottom: 18px;
-}
-.signup-login-and-signup p {
-  margin: 0;
-  padding: 0;
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  color: #9b9b9b;
-  cursor: pointer;
-}
-.signup-login-and-signup .signupname {
-  color: #44204d; 
-  position: relative;
-  font-weight: 600;
-}
-.signup-login-and-signup .signupname::after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #d19be3;
-  margin: 6px auto 0;
-  border-radius: 3px;
-}
-.signup-login-and-signup a{
-  text-decoration: none;
+.signupname {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Outfit', sans-serif;
+  text-align: center;
 }
 
+.signup-field {
+  margin-bottom: 24px;
+}
 
 .signup-label {
   display: block;
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
-  color: #666;
-  margin: 14px 0 6px 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+  margin-left: 2px;
 }
-
 
 .signup-input {
   width: 100%;
-  height: 34px;
-  border: none;
-  background-color: #eaeaea;
-  border-radius: 6px;
-  padding-left: 14px;
-  font-size: 13px;
-  box-sizing: border-box;
+  background: var(--bg-main);
+  border: 1.5px solid var(--border-standard);
+  border-radius: 16px;
+  padding: 14px 20px;
+  font-size: 15px;
+  color: var(--text-dark);
+  transition: var(--transition-standard);
+  height: 52px;
+}
+
+.signup-input:focus {
   outline: none;
-}
-
-
-
-.signup-form-card form > .signup-label + .signup-input{
-  margin-bottom: 6px;
-}
-
-.signup-form-card form > * {
-  margin-bottom: 12px;
+  border-color: var(--primary-purple);
+  background: #ffffff;
+  box-shadow: 0 0 0 5px rgba(178, 121, 197, 0.15);
 }
 
 .signupbutton {
-  display: inline-block;
-  margin: 16px auto 0;
-  width: 160px;
-  height: 36px;
-  background-color: #d19be3;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-purple) 100%);
   border: none;
-  border-radius: 8px;
+  border-radius: 16px;
   color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition-standard);
+  box-shadow: 0 10px 25px rgba(147, 51, 234, 0.25);
+  margin-top: 12px;
+}
+
+.signupbutton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(147, 51, 234, 0.35);
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+}
+
+/* Modal Specific Overrides */
+.signup-modal-body {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.signup-modal-body .signupcontainer {
+  max-width: 950px;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.signup-cancel-btn {
+  flex: 1;
+  padding: 16px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  color: #64748b;
   font-weight: 600;
   cursor: pointer;
-  transition: transform .12s ease;
-  display: block;
-}
-.signupbutton:hover {
-  transform: translateY(-2px);
-
+  transition: all 0.3s ease;
 }
 
-@media (max-width: 980px) {
-  .signupcontainer {
-    flex-direction: column;
-    align-items: center;
-  }
+.signup-cancel-btn:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.signup-modal-body .signupbutton {
+  flex: 1.5;
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
   .signup-left-section {
-    width: 80%;
-    margin-bottom: 24px;
-    height: 360px;
-  }
-  .signup-right-section {
-    margin-left: 0;
-    width: 90%;
-  }
-  .signup-form-card {
-    width: 90%;
-    padding: 28px;
+    display: none;
   }
 }

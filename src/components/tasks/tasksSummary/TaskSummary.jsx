@@ -1,44 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TaskSummary.css";
 import { useNavigate } from "react-router-dom";
 import api from "../../../api/api";
+import { FiMoreVertical, FiFilter, FiChevronDown, FiClock } from "react-icons/fi";
 
 const TaskSummary = () => {
   const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
-  const [openMenuIndex, setOpenMenuIndex] = useState(null);
   const [search, setSearch] = useState("");
-  const menuRef = useRef(null);
+  const [openMenuId, setOpenMenuId] = useState(null);
 
-       useEffect(() => {
-  fetchTasks();
-}, []);
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
-  // Debounce search effect (prevents hanging)
   useEffect(() => {
     const delay = setTimeout(() => {
       fetchTasks(search);
     }, 400);
-
     return () => clearTimeout(delay);
   }, [search]);
 
-  // Close dropdown outside click
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setOpenMenuIndex(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    const handleClickOutside = () => setOpenMenuId(null);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   const fetchTasks = async (query = "") => {
     try {
       const response = await api.get(
-        `admin_app/view_tasks${query ? `?search=${query}` : ""}`
+        `admin_app/tasks/${query ? `?search=${query}` : ""}`
       );
       setTasks(response.data.tasks || []);
     } catch (error) {
@@ -47,91 +39,86 @@ const TaskSummary = () => {
     }
   };
 
-  const toggleMenu = (index) => {
-    setOpenMenuIndex(openMenuIndex === index ? null : index);
+  const toggleMenu = (e, id) => {
+    e.stopPropagation();
+    setOpenMenuId(openMenuId === id ? null : id);
   };
-  const handleDelete = async (id) => {
-  if (!window.confirm("Are you sure you want to delete this task?")) return;
 
-  try {
-    const res = await api.delete(`admin_app/delete_tasks/${id}/`);
-
-    if (res.status === 200) {
-      alert("Task deleted successfully");
-      setTasks(prev => prev.filter(task => task.id !== id));
-    } else {
-      alert("Delete failed");
-    }
-
-  } catch (err) {
-    console.error("Delete error:", err);
-    alert("Server error");
-  }
-};
-
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "-";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  };
 
   return (
- <>
+    <div className="task-summary-container">
+      <div className="task-summary-card-wrapper">
+        <div className="table-top-bar">
+          <h3>Task Summary</h3>
+          <div className="top-bar-actions">
+            <button className="filter-button">
+              <FiFilter /> Filter
+            </button>
+            <div className="current-day-badge">
+              <FiClock /> Today <FiChevronDown />
+            </div>
+          </div>
+        </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Task Name</th>
-            <th>Priority</th>
-            <th>Due Date</th>
-            <th>Status</th>
-            <th>Assigned To</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-
-
-<tbody>
-  {tasks.length === 0 ? (
-    <tr>
-      <td colSpan="6" style={{ textAlign: "center" }}>
-        No tasks found
-      </td>
-    </tr>
-  ) : (
-    tasks.map((task) => (
-      <tr key={task.id}>
-        <td>{task.task_name}</td>
-
-        <td>
-          <span className={`priority-pill ${task.priority?.toLowerCase()}`}>
-            {task.priority}
-          </span>
-        </td>
-
-        <td>{task.due_date}</td>
-
-        <td className={`status ${task.status?.toLowerCase().replace(" ", "-")} `}>
-          {task.status}
-        </td>
-
-        <td>
-            {task.assigned_to?.length > 0
-              ? task.assigned_to
-                  .map((u) => `${u.first_name} ${u.last_name}`)
-                  .join(", ")
-              : "Not Assigned"}
-        </td>
-
-
-        <td className="actions">
-              <img onClick={() => navigate(`/taskdetails/${task.id}`)} src="edit-3-svgrepo-com.svg" alt="" />
-              <img onClick={() => handleDelete(task.id)} src="delete 2.svg" alt="" />
-            
-        </td>
-      </tr>
-    ))
-  )}
-</tbody>
-
-      </table>
-    </>
+        <div className="task-table-scroll">
+          <table className="task-ref-table">
+            <thead>
+              <tr>
+                <th>Task Name</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Assigned By</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tasks.length === 0 ? (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center", padding: "40px" }}>
+                    No tasks found
+                  </td>
+                </tr>
+              ) : (
+                tasks.map((task) => (
+                  <tr key={task.id}>
+                    <td className="task-name-col">{task.task_name}</td>
+                    <td>
+                      <span className={`prio-badge ${task.priority?.toLowerCase()}`}>
+                        {task.priority}
+                      </span>
+                    </td>
+                    <td>{formatDate(task.due_date)}</td>
+                    <td className={`status-text ${task.status?.toLowerCase().replace(" ", "-")}`}>
+                      {task.status}
+                    </td>
+                    <td>Project Lead</td>
+                    <td className="actions-cell">
+                      <div className="action-menu-container">
+                        <button className="more-btn" onClick={(e) => toggleMenu(e, task.id)}>
+                          <FiMoreVertical />
+                        </button>
+                        {openMenuId === task.id && (
+                          <div className="dropdown-menu">
+                            <div className="menu-item" onClick={() => navigate(`/taskdetails/${task.id}`)}>View</div>
+                            <div className="menu-item" onClick={() => navigate(`/taskdetails/${task.id}`)}>Edit</div>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 };
 

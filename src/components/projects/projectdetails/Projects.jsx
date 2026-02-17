@@ -1,10 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
+import api from "../../../api/api";
 import "./Projects.css";
+import { toast } from "react-hot-toast";
+
+import NewProjectModal from "../newprojects/NewProjectModal";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // backend-driven filter & sort
   const [filterStatus, setFilterStatus] = useState("All");
@@ -12,45 +17,48 @@ const Projects = () => {
 
   const menuRef = useRef(null);
 
+  const fetchProjects = () => {
+    let url = "admin_app/projects/";
 
-useEffect(() => {
-  let url = "http://127.0.0.1:8000/admin_app/view_projects";
+    if (filterStatus !== "All") {
+      url += `?status=${encodeURIComponent(filterStatus)}`;
+    }
 
-  if (filterStatus !== "All") {
-    url += `?status=${encodeURIComponent(filterStatus)}`;
-  }
+    api.get(url)
+      .then((res) => {
+        const backendProjects = res.data.projects || [];
 
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      const backendProjects = data.projects || [];
+        const mapped = backendProjects.map((p) => ({
+          id: p.id,
+          work: p.project_name,
+          comapny: p.company_name,
+          status: p.status,
+          time: p.due_date ? `Due ${p.due_date}` : "No date",
+          progress: "60",
+        }));
 
-      const mapped = backendProjects.map((p) => ({
-        id: p.id,
-        work: p.Project_Name,
-        comapny: p.Company_Name,
-        status: p.Status,
-        time: p.Due_Date ? `Due ${p.Due_Date}` : "No date",
-        progress: "60",
-      }));
+        setProjects(mapped);
+      })
+      .catch((err) => console.error("Failed to load projects", err));
+  };
 
-      setProjects(mapped);
-    })
-    .catch((err) => console.error("Failed to load projects", err));
-}, [filterStatus, sortMode]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [filterStatus, sortMode]);
 
 
   /* =========================
      Close action menu on outside click
   ========================= */
- useEffect(() => {
-  const handleClickOutside = () => {
-    setOpenIndex(null);
-  };
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setOpenIndex(null);
+    };
 
-  document.addEventListener("click", handleClickOutside);
-  return () => document.removeEventListener("click", handleClickOutside);
-}, []);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
 
   /* =========================
@@ -71,29 +79,24 @@ useEffect(() => {
   };
 
   const handleDelete = async (id) => {
-  if (!window.confirm("Are you sure you want to delete this project?")) return;
+    if (!window.confirm("Are you sure you want to delete this project?")) return;
 
-  try {
-    const res = await fetch(
-      `http://127.0.0.1:8000/admin_app/delete_projects/${id}/`,
-      { method: "DELETE" }
-    );
+    try {
+      const res = await api.delete(`admin_app/projects/${id}/delete/`);
 
-    const data = await res.json();
-
-    if (res.ok) {
-      alert("Deleted Successfully");
-      setProjects(prev => prev.filter(p => p.id !== id));
+      if (res.status === 200) {
+        alert("Deleted Successfully");
+        setProjects(prev => prev.filter(p => p.id !== id));
         setOpenIndex(null);
-    } else {
-      alert(data.error || "Delete failed");
-    }
+      } else {
+        alert("Delete failed");
+      }
 
-  } catch (err) {
-    console.error(err);
-    alert("Server error");
-  }
-};
+    } catch (err) {
+      console.error(err);
+      alert("Server error");
+    }
+  };
 
 
   return (
@@ -104,13 +107,21 @@ useEffect(() => {
       <div className="project-title">
         <div className="PRoject">Projects</div>
 
-        <NavLink to="/newproject">
-          <div className="new-project-btn">
-            <img className="plus-icon" src="/Add.svg" alt="" />
-            <div>New Project</div>
-          </div>
-        </NavLink>
+        <button
+          className="new-project-btn"
+          onClick={() => setIsModalOpen(true)}
+          style={{ border: 'none', cursor: 'pointer' }}
+        >
+          <img className="plus-icon" src="/Add.svg" alt="" />
+          <div>New Project</div>
+        </button>
       </div>
+
+      <NewProjectModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={fetchProjects}
+      />
 
       {/* =========================
           Filter / Sort
@@ -158,13 +169,13 @@ useEffect(() => {
               Actions
           ========================= */}
           <div className="three-dot-wrapper" ref={menuRef}>
-                <div
-        className="three-dot"
-        onClick={(e) => {
-          e.stopPropagation();
-          toggleMenu(index);
-        }}
-      >
+            <div
+              className="three-dot"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMenu(index);
+              }}
+            >
 
               <img src="/3 dot.svg" alt="menu" />
             </div>

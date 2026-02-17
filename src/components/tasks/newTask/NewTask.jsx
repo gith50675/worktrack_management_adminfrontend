@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./NewTask.css";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import api from "../../../api/api";
 
-const NewTask = () => {
+const NewTask = ({ isModal = false, onClose, onSuccess }) => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ const NewTask = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await api.get("/admin_app/users/list/");
+        const res = await api.get("admin_app/users/list/");
         setUsers(res.data);
       } catch (error) {
         toast.error("Failed to load users");
@@ -63,11 +63,15 @@ const NewTask = () => {
         assigned_to: [Number(formData.assignedTo)],
       };
 
-      const res = await api.post("/admin_app/add_tasks/", payload);
+      const res = await api.post("admin_app/tasks/add/", payload);
 
       if (res.status === 201) {
         toast.success("Task added successfully");
-        navigate("/tasks");
+        if (isModal) {
+          onSuccess && onSuccess();
+        } else {
+          navigate("/tasks");
+        }
       }
     } catch (error) {
       toast.error("Failed to add task");
@@ -77,97 +81,109 @@ const NewTask = () => {
   };
 
   return (
-    <>
-      <div className="newtask-title">New Task</div>
+    <div className={`${isModal ? "new-task-modal-body" : "new-task-page-container"} animate-fade-in`}>
+      {!isModal && (
+        <div className="new-task-header animate-slide-up">
+          <h2 className="new-task-title">Create New Task</h2>
+          <p className="new-task-subtitle">Fill in the details below to assign a new task.</p>
+        </div>
+      )}
 
-      <div className="newtask-container">
+      <div className={`newtask-container ${!isModal ? "animate-slide-up" : ""}`} style={{ animationDelay: '0.1s' }}>
         {/* LEFT */}
-        <div className="newtask-leftform">
-          <label>Task Name *</label>
-          <input
-            type="text"
-            name="taskName"
-            className="newtask-input"
-            value={formData.taskName}
-            onChange={handleChange}
-          />
+        <div className="newtask-form-card">
+          <div className="form-section">
+            <label className="form-label">Task Name *</label>
+            <input
+              type="text"
+              name="taskName"
+              className="newtask-input"
+              placeholder="Enter task name"
+              value={formData.taskName}
+              onChange={handleChange}
+            />
 
-          <label>Description</label>
-          <textarea
-            name="description"
-            className="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
+            <label className="form-label">Description</label>
+            <textarea
+              name="description"
+              className="description-input"
+              placeholder="Add task description..."
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
         {/* RIGHT */}
-        <div className="newtask-rightform">
-          <label>Assigned To *</label>
-          <select
-            name="assignedTo"
-            className="newtask-input"
-            value={formData.assignedTo}
-            onChange={handleChange}
-          >
-            <option value="">Select User</option>
-            {users.map((u) => (
-              <option key={u.id} value={u.id}>
-                {u.first_name || u.email}
-              </option>
-            ))}
-          </select>
+        <div className="newtask-form-card">
+          <div className="form-section">
+            <label className="form-label">Assigned To *</label>
+            <select
+              name="assignedTo"
+              className="newtask-input"
+              value={formData.assignedTo}
+              onChange={handleChange}
+            >
+              <option value="">Select User</option>
+              {users.map((u) => (
+                <option key={u.id} value={u.id}>
+                  {u.first_name || u.email}
+                </option>
+              ))}
+            </select>
 
-          <div className="date-hour">
-            <div>
-              <label>Due Date *</label>
-              <input
-                type="date"
-                name="dueDate"
-                className="date"
-                value={formData.dueDate}
-                onChange={handleChange}
-              />
+            <div className="date-hour-grid">
+              <div className="form-item">
+                <label className="form-label">Due Date *</label>
+                <input
+                  type="date"
+                  name="dueDate"
+                  className="date-input"
+                  value={formData.dueDate}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-item">
+                <label className="form-label">Est. Hours</label>
+                <input
+                  type="number"
+                  name="workingHours"
+                  className="esthour-input"
+                  min="0"
+                  placeholder="0"
+                  value={formData.workingHours}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
 
-            <div>
-              <label>Est. Hours</label>
-              <input
-                type="number"
-                name="workingHours"
-                className="esthour"
-                min="0"
-                value={formData.workingHours}
-                onChange={handleChange}
-              />
-            </div>
+            <label className="form-label">Priority *</label>
+            <select
+              name="priority"
+              className="newtask-input"
+              value={formData.priority}
+              onChange={handleChange}
+            >
+              <option value="">Select Priority</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
           </div>
-
-          <label>Priority *</label>
-          <select
-            name="priority"
-            className="newtask-input"
-            value={formData.priority}
-            onChange={handleChange}
-          >
-            <option value="">Select</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
         </div>
       </div>
 
-      <div className="form-buttons">
-        <button className="cancel-btn" onClick={() => navigate("/tasks")}>
-          Cancel
+      <div className={`${isModal ? "modal-actions-bar" : "form-actions-bar"} animate-slide-up`} style={{ animationDelay: '0.2s' }}>
+        <button className="btn-cancel" onClick={isModal ? onClose : () => navigate("/tasks")}>
+          {isModal ? "Close" : "Discard"}
         </button>
 
-        <button className="save-btn" onClick={handleSubmit} disabled={loading}>
-          {loading ? "Saving..." : "Save"}
+        <button className="btn-save" onClick={handleSubmit} disabled={loading}>
+          {loading ? "Creating..." : "Create Task"}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

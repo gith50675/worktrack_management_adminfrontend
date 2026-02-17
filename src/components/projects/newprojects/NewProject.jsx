@@ -4,9 +4,8 @@ import { toast } from "react-toastify";
 import api from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
-const NewProject = () => {
+const NewProject = ({ isModal = false, onClose, onSuccess }) => {
   const navigate = useNavigate();
-
 
   const [formData, setFormData] = useState({
     project_name: "",
@@ -15,27 +14,25 @@ const NewProject = () => {
     assigned_by: "",
     due_date: "",
     est_hr: "",
-    priority: "",
+    priority: "Medium",
     links: "",
   });
 
   const [attachments, setAttachments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showLinkInput, setShowLinkInput] = useState(false);
-  const [users, setUsers] = useState([]);          // <-- USERS STATE
+  const [users, setUsers] = useState([]);
   const fileInputRef = useRef(null);
 
-  // ---------- FETCH USERS ----------
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await api.get("admin_app/users");  // same API used in tasks
+        const res = await api.get("admin_app/users/list/");
         setUsers(res.data);
       } catch (err) {
         toast.error("Failed to load users");
       }
     };
-
     fetchUsers();
   }, []);
 
@@ -57,7 +54,7 @@ const NewProject = () => {
   };
 
   const handleLinkIconClick = () => {
-    if (formData.links?.trim()) {
+    if (formData.links?.trim() && !showLinkInput) {
       const url = formData.links.startsWith("http")
         ? formData.links
         : `https://${formData.links}`;
@@ -70,7 +67,7 @@ const NewProject = () => {
   const validateRequired = () => {
     const { project_name, company_name, description, assigned_by, due_date, est_hr } = formData;
     if (!project_name || !company_name || !description || !assigned_by || !due_date || !est_hr) {
-      toast.error("Please fill all fields");
+      toast.error("All mission-critical fields are required");
       return false;
     }
     return true;
@@ -82,104 +79,96 @@ const NewProject = () => {
 
     try {
       setLoading(true);
-
       const payload = new FormData();
       payload.append("project_name", formData.project_name);
       payload.append("company_name", formData.company_name);
       payload.append("description", formData.description);
-
-      // ---------- MAIN IMPORTANT ----------
-      payload.append("assigned_by", formData.assigned_by);   // USER ID GOING
-      // ------------------------------------
-
+      payload.append("assigned_by", formData.assigned_by);
       payload.append("due_date", formData.due_date);
       payload.append("est_hr", formData.est_hr);
-      payload.append("priority", formData.priority || "");
-      payload.append("links", formData.links || "");
+      payload.append("priority", formData.priority);
+      payload.append("links", formData.links);
 
       attachments.forEach(f => payload.append("attachments", f));
 
-      const res = await api.post("/admin_app/add_projects/", payload);
-      toast.success(res.data?.message || "Project Added Successfully");
-      navigate("/projects");   // your project list route
+      const res = await api.post("admin_app/projects/add/", payload);
+      toast.success(res.data?.message || "Project launched successfully!");
 
-      setFormData({
-        project_name: "",
-        company_name: "",
-        description: "",
-        assigned_by: "",
-        due_date: "",
-        est_hr: "",
-        priority: "",
-        links: "",
-      });
-
-      setAttachments([]);
-      setShowLinkInput(false);
-
+      if (isModal) {
+        onSuccess && onSuccess();
+      } else {
+        navigate("/projects");
+      }
     } catch (err) {
-      toast.error("Project Add Failed");
+      toast.error(err.response?.data?.message || "Failed to initialize project");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="newproject-title">New Project</div>
+    <div className={`${isModal ? "new-project-modal-body" : "new-project-full-page"} animate-fade-in`}>
+      {!isModal && <div className="newproject-title">Initialize New Project</div>}
 
-      <form className="newproject-container" onSubmit={handleSubmit}>
+      <form className={`newproject-container ${!isModal ? "animate-slide-up" : ""}`} onSubmit={handleSubmit}>
         <div className="newproject-leftform">
+          <div className="newproject-form-group">
+            <label>Project Name</label>
+            <input
+              type="text"
+              className="newproject-input"
+              name="project_name"
+              placeholder="Enter project name..."
+              value={formData.project_name}
+              onChange={handleChange}
+            />
+          </div>
 
-          <label>Project Name</label>
-          <input
-            type="text"
-            className="newproject-input"
-            name="project_name"
-            value={formData.project_name}
-            onChange={handleChange}
-          />
+          <div className="newproject-form-group">
+            <label>Company Name</label>
+            <input
+              type="text"
+              className="newproject-input"
+              name="company_name"
+              placeholder="Client or Company Name"
+              value={formData.company_name}
+              onChange={handleChange}
+            />
+          </div>
 
-          <label>Company Name</label>
-          <input
-            type="text"
-            className="newproject-input"
-            name="company_name"
-            value={formData.company_name}
-            onChange={handleChange}
-          />
-
-          <label>Description</label>
-          <textarea
-            className="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
+          <div className="newproject-form-group">
+            <label>Detailed Description</label>
+            <textarea
+              className="description"
+              name="description"
+              placeholder="Outline project goals, scope, and key deliverables..."
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
         <div className="newproject-rightform">
-
-          {/* -------- ASSIGNED TO DROPDOWN -------- */}
-          <label>Assigned To</label>
-          <select
-            name="assigned_by"
-            className="newproject-input"
-            value={formData.assigned_by}
-            onChange={handleChange}
-          >
-            <option value="">Select User</option>
-
-            {users.map(u => (
-              <option key={u.user_id} value={u.user_id}>
-              {u.user_name}
-              </option>
-            ))}
-          </select>
+          <div className="newproject-form-group">
+            <label>Assign Project Lead</label>
+            <select
+              name="assigned_by"
+              className="newproject-input"
+              value={formData.assigned_by}
+              onChange={handleChange}
+            >
+              <option value="">Select an available user</option>
+              {users.map(u => (
+                <option key={u.id} value={u.id}>
+                  {u.first_name || u.email}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="date-hour">
-            <div className="dates">
-              <label>Due Date</label>
+            <div className="newproject-form-group">
+              <label>Deadline</label>
               <input
                 type="date"
                 className="date"
@@ -189,92 +178,81 @@ const NewProject = () => {
               />
             </div>
 
-            <div className="est-hour">
-              <label>Est.hour</label>
+            <div className="newproject-form-group">
+              <label>Est. Investment (Hours)</label>
               <input
-                type="text"
+                type="number"
                 className="esthour"
                 name="est_hr"
-                placeholder="00hr"
+                placeholder="24"
                 value={formData.est_hr}
                 onChange={handleChange}
               />
             </div>
           </div>
 
-
-
+          <div className="newproject-form-group">
+            <label>Priority Level</label>
+            <select
+              name="priority"
+              value={formData.priority}
+              onChange={handleChange}
+              className="priority-select"
+            >
+              <option value="High">High Priority</option>
+              <option value="Medium">Medium Priority</option>
+              <option value="Low">Low Priority</option>
+            </select>
+          </div>
 
           <div className="priority-link-project">
-            <div className="project-priority">
-              <select
-                name="priority"
-                value={formData.priority}
-                onChange={handleChange}
-                className="priority-select"
-                aria-label="Priority"
-              >
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-              </select>
-            </div>
+            <div className="newproject-form-group">
+              <label>Resource Links & Attachments</label>
+              <div className="attachment-block">
+                <button
+                  type="button"
+                  className="project-attachment-link"
+                  onClick={handleLinkIconClick}
+                  title={formData.links ? "Open reference link" : "Add resource link"}
+                >
+                  <img src="/link icon.svg" alt="link" className="icon-img" />
+                </button>
 
-            {/* Link icon (toggles inline input). Clicking image opens link if present */}
-            <div className="attachment-block">
-              <button
-                type="button"
-                className="project-attachment-link"
-                onClick={handleLinkIconClick}
-                title={formData.links ? "Open link in new tab" : "Add link"}
-              >
-                <img src="link icon.svg" alt="link" className="icon-img" />
-              </button>
+                {showLinkInput && (
+                  <input
+                    type="url"
+                    name="links"
+                    value={formData.links}
+                    placeholder="https://resource-link.com"
+                    onChange={handleChange}
+                    className="small-link-input"
+                  />
+                )}
 
-              {showLinkInput && (
                 <input
-                  type="url"
-                  name="links"
-                  value={formData.links}
-                  placeholder="https://example.com"
-                  onChange={handleChange}
-                  className="small-link-input"
+                  ref={fileInputRef}
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                  multiple
                 />
-              )}
-
-              {!showLinkInput && formData.links && (
-                <div className="selected-meta">
-                  {formData.links.length > 30 ? formData.links.slice(0, 30) + "..." : formData.links}
-                </div>
-              )}
-            </div>
-
-            {/* File attachment icon */}
-            <div className="attachment-block">
-              <input
-                ref={fileInputRef}
-                type="file"
-                className="hidden-file"
-                onChange={handleFileChange}
-                multiple
-                accept="*/*"
-              />
-              <button
-                type="button"
-                className="project-attachment-link"
-                onClick={handleAttachmentClick}
-                title="Add attachment(s)"
-              >
-                <img src="link.svg" alt="attachment" className="icon-img" />
-              </button>
+                <button
+                  type="button"
+                  className="project-attachment-link"
+                  onClick={handleAttachmentClick}
+                  title="Attach documentation"
+                >
+                  <img src="/link.svg" alt="attachment" className="icon-img" />
+                </button>
+              </div>
 
               <div className="files-list selected-meta">
                 {attachments.length === 0 ? (
-                  <span className="no-file">No file</span>
+                  <span className="no-file">No documents attached</span>
                 ) : (
                   attachments.map((f, i) => (
-                    <div key={`${f.name}-${f.size}-${i}`} className="file-item">
-                      <span className="file-name">{f.name.length > 18 ? f.name.slice(0, 18) + "..." : f.name}</span>
+                    <div key={i} className="file-item">
+                      <span className="file-name">{f.name}</span>
                       <button type="button" className="remove-file" onClick={() => handleRemoveAttachment(i)}>
                         &times;
                       </button>
@@ -285,30 +263,17 @@ const NewProject = () => {
             </div>
           </div>
 
-          <div className="form-buttons">
-            <button type="button" className="cancel-btn" onClick={() => {
-              // optional: reset form or navigate back
-              setFormData({
-                project_name: "",
-                company_name: "",
-                description: "",
-                assigned_by: "",
-                due_date: "",
-                est_hr: "",
-                priority: "",
-                links: "",
-              });
-              setAttachments([]);
-            }}>
-              Cancel
+          <div className={isModal ? "modal-buttons" : "form-buttons"}>
+            <button type="button" className="cancel-btn" onClick={isModal ? onClose : () => navigate("-1")}>
+              {isModal ? "Cancel" : "Discard Changes"}
             </button>
             <button className="save-btn" type="submit" disabled={loading}>
-              {loading ? "Adding Project...." : "Save"}
+              {loading ? "Initializing..." : "Launch Project"}
             </button>
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -1,9 +1,105 @@
-*{
+:root {
+  /* Colors - Restoring the "Fancy" Palette */
+  --primary-purple: #b279c5;
+  --primary-dark: #9333ea;
+  --secondary-purple: #e5b6f5;
+  --bg-main: #fcfaff;
+  --bg-card: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-main: #374151;
+  --text-muted: #6b7280;
+  --border-light: #f3f4f6;
+  --border-standard: #e5e7eb;
+
+  /* Glassmorphism Restore */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-blur: blur(12px);
+
+  /* Elevation */
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* Layout Constants */
+  --sidebar-width: 300px;
+  --navbar-height: 60px;
+  --radius-standard: 16px;
+  --radius-small: 8px;
+  --transition-standard: all 0.3s ease;
+}
+
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+.brand-font {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  color: var(--text-dark);
+}
+
 .Toastify__toast-container {
   z-index: 9999999 !important;
+}
+
+/* Common Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+/* Scrollbar Style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-standard);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }

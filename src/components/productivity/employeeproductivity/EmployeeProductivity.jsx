@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
+import api from "../../../api/api";
 import "./EmployeeProductivity.css";
 
 const Employeeproductivity = () => {
@@ -8,14 +9,9 @@ const Employeeproductivity = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/admin_app/employee_productivity/${id}/`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setEmp(data.user);
+    api.get(`admin_app/employees/${id}/productivity/`)
+      .then((res) => {
+        setEmp(res.data.user);
       })
       .catch((err) => console.log("Failed to load employee", err))
       .finally(() => setLoading(false));
@@ -41,26 +37,21 @@ const Employeeproductivity = () => {
 
       <hr className="employee-divider" />
 
-      <div className="employee-status-space">
-        <div className="employee-status-card">
-          <div className="stats_name">Active Project</div>
-          <div className="numbers">{emp.active_projects}</div>
-        </div>
-
-        <div className="employee-status-card">
-          <div className="stats_name">Task In Progress</div>
-          <div className="numbers">{emp.in_progress}</div>
-        </div>
-
-        <div className="employee-status-card">
-          <div className="stats_name">Completed Tasks</div>
-          <div className="numbers">{emp.completed}</div>
-        </div>
-
-        <div className="employee-status-card">
-          <div className="stats_name">Idle Time Today</div>
-          <div className="numbers">{emp.idle_today}</div>
-        </div>
+      <div className="employee-status-space animate-slide-up">
+        {[
+          { label: "Active Projects", val: emp.active_projects, icon: "📊", color: "#b279c5" },
+          { label: "Tasks In Progress", val: emp.in_progress, icon: "⚡", color: "#9333ea" },
+          { label: "Completed Tasks", val: emp.completed, icon: "✅", color: "#10b981" },
+          { label: "Idle Time Today", val: emp.idle_today, icon: "⏳", color: "#f59e0b" }
+        ].map((card, idx) => (
+          <div className="employee-status-card" key={idx} style={{ borderLeft: `4px solid ${card.color}` }}>
+            <div className="card-header">
+              <span className="card-icon">{card.icon}</span>
+              <div className="stats_name">{card.label}</div>
+            </div>
+            <div className="numbers">{card.val}</div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import "./WorkDetails.css"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import api from "../../../api/api"
 
 const WorkDetails = () => {
 
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchTasks()
@@ -14,24 +15,25 @@ const WorkDetails = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await api.get("admin_app/view_tasks")
+      const res = await api.get("admin_app/tasks/")
 
       // convert tasks → users (first assigned user shown)
-      const formatted = res.data.tasks.map(t => ({
-        name: t.assigned_to?.length > 0 
-              ? `${t.assigned_to[0].first_name} ${t.assigned_to[0].last_name}`
-              : "Unassigned",
+      const formatted = res.data.tasks.map(t => {
+        const assignedUser = t.assigned_to?.length > 0 ? t.assigned_to[0] : null;
+        return {
+          id: assignedUser?.id || null,
+          name: assignedUser
+            ? `${assignedUser.first_name} ${assignedUser.last_name}`
+            : "Unassigned",
+          hour: t.working_hours ? `${t.working_hours}h` : "0h",
+          time: "8h",
+          fill: t.working_hours
+            ? `${Math.min((t.working_hours / 8) * 100, 100)}%`
+            : "0%"
+        };
+      })
 
-        hour: t.working_hours ? `${t.working_hours}h` : "0h",
-
-        time: "8h",
-
-        fill: t.working_hours 
-              ? `${Math.min((t.working_hours / 8) * 100, 100)}%`
-              : "0%"
-      }))
-
-      setRows(formatted.slice(0,3))   // only 3 users like your UI
+      setRows(formatted.slice(0, 3))   // only 3 users like your UI
     } catch (err) {
       console.log("Failed to load work details", err)
     } finally {
@@ -67,7 +69,9 @@ const WorkDetails = () => {
 
       {rows.map((row, index) => (
         <div className="user-work" key={index}>
-          <div className="left-user">
+          <div className="left-user"
+            onClick={() => row.id && navigate(`/employeeproductivity/${row.id}`)}
+            style={{ cursor: row.id ? 'pointer' : 'default' }}>
             <div className="user">
               <img src="\user icon.svg" alt={row.name} />
               <p>{row.name}</p>

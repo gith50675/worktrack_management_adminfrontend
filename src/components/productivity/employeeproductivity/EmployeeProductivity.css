@@ -1,104 +1,112 @@
-/* page section */
 .employee-status-container {
-  padding: 20px 30px 16px;
-  box-sizing: border-box;
+  padding: 40px;
+  background-color: var(--bg-main);
+  min-height: calc(100vh - var(--navbar-height));
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* name + back arrow */
 .employee-name-title {
   display: flex;
-  gap: 30px;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 32px;
+  margin-bottom: 40px;
 }
 
 .arrow {
-  margin-top: 24px;
-}
-
-.name {
-  font-weight: 500;
-  font-size: 32px;
-  font-family: inter;
-}
-
-.designation {
-  font-weight: 400;
-  font-size: 15px;
-  font-family: inter;
-}
-
-/* divider just for this section */
-.employee-divider {
-  height: 1px;
-  border: 1px;
-  background-color: #d9d7d9;
-  margin-top: 20px;
-}
-
-/* status cards */
-.employee-status-space {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 18px;
-  margin-top: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-standard);
+}
+
+.arrow:hover {
+  transform: translateX(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+.employee-name .name {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-dark);
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.employee-name .designation {
+  font-size: 16px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.employee-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, var(--glass-border), transparent);
+  margin: 40px 0;
+}
+
+.employee-status-space {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
 }
 
 .employee-status-card {
-  background-color: #faf4fc;
-  width: 230px;
-  padding: 18px 20px;
-  border-radius: 12px;
-  margin-top: 4px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow-medium);
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  transition: var(--transition-standard);
+}
+
+.employee-status-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
   gap: 12px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.card-icon {
+  font-size: 24px;
 }
 
 .stats_name {
-  font-weight: 400;
-  font-size: 20px;
-  font-family: inter;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .numbers {
-  font-weight: 400;
-  font-size: 40px;
-  font-family: inter;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text-dark);
+  font-family: 'Outfit', sans-serif;
 }
 
-/* ===== tablet ===== */
-@media (max-width: 1024px) {
-  .employee-status-container {
-    padding: 16px 20px 12px;
-  }
-
-  .employee-status-space {
-    justify-content: flex-start;
-  }
-}
-
-/* ===== mobile ===== */
 @media (max-width: 768px) {
   .employee-status-container {
-    padding: 12px 16px 8px;
+    padding: 24px;
   }
 
-  .employee-status-space {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .employee-status-card {
-    width: calc(50% - 10px);
-  }
-}
-
-/* very small screens: 1 card per row */
-@media (max-width: 480px) {
-  .employee-status-card {
-    width: 100%;
+  .employee-name .name {
+    font-size: 24px;
   }
 }

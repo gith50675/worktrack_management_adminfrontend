@@ -83,7 +83,7 @@ export default function KanbanDndKit({ tasks, filter }) {
 
       cards[id] = {
         title: task.task_name,
-        assigned: task.assigned_to.join(", "),
+        assigned: task.assigned_to.map(u => u.first_name || u.username).join(", "),
         priority: task.priority,
       };
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../api/api";
 import { toast } from "react-toastify";
 
-const Signup = () => {
+const Signup = ({ isModal = false, onClose, onSuccess }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -17,14 +17,14 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
 
-  // 🔐 ADMIN CHECK (VERY IMPORTANT)
+  // 🔐 ADMIN CHECK (Only if not in modal, or always to be safe)
   useEffect(() => {
     const verifyAdmin = async () => {
       try {
-        const res = await api.get("/admin_app/current_user/");
+        const res = await api.get("admin_app/current_user/");
         if (res.data.role !== "admin") {
           toast.error("You are not authorized to create users");
-          navigate("/dashboard");
+          if (!isModal) navigate("/dashboard");
         }
       } catch {
         toast.error("Session expired. Please login again.");
@@ -36,7 +36,7 @@ const Signup = () => {
     };
 
     verifyAdmin();
-  }, [navigate]);
+  }, [navigate, isModal]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,13 +55,16 @@ const Signup = () => {
     try {
       setLoading(true);
 
-      const res = await api.post("/admin_app/signup/", formData);
+      const res = await api.post("admin_app/signup/", formData);
 
       toast.success(res.data?.message || "User created successfully");
-      setFormData({ name: "", email: "", mobile: "", password: "" });
 
-      // ✅ BACK TO USERS LIST
-      navigate("/users");
+      if (isModal) {
+        onSuccess && onSuccess();
+      } else {
+        setFormData({ name: "", email: "", mobile: "", password: "" });
+        navigate("/users");
+      }
 
     } catch (error) {
       const msg =
@@ -78,9 +81,8 @@ const Signup = () => {
   if (checkingRole) return null;
 
   return (
-    <div className="signupmain">
+    <div className={isModal ? "signup-modal-body" : "signupmain"}>
       <div className="signupcontainer">
-
         <div className="signup-left-section">
           <div className="signup-logo-box">
             <img
@@ -93,65 +95,76 @@ const Signup = () => {
 
         <div className="signup-right-section">
           <div className="signup-form-card">
-
-            {/* 🔁 TEXT UPDATED */}
             <div className="signup-login-and-signup">
               <p className="signupname">Create User</p>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              <label className="signup-label">Name</label>
-              <input
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                type="text"
-                className="signup-input"
-                placeholder="Enter name"
-              />
+            <form onSubmit={handleSubmit} className="signup-form">
+              <div className="signup-field">
+                <label className="signup-label">Name</label>
+                <input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  type="text"
+                  className="signup-input"
+                  placeholder="Enter name"
+                />
+              </div>
 
-              <label className="signup-label">Email</label>
-              <input
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                type="email"
-                className="signup-input"
-                placeholder="Enter email"
-              />
+              <div className="signup-field">
+                <label className="signup-label">Email</label>
+                <input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  type="email"
+                  className="signup-input"
+                  placeholder="Enter email"
+                />
+              </div>
 
-              <label className="signup-label">Mobile Number</label>
-              <input
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                type="tel"
-                className="signup-input"
-                placeholder="Enter mobile number"
-              />
+              <div className="signup-field">
+                <label className="signup-label">Mobile Number</label>
+                <input
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  type="tel"
+                  className="signup-input"
+                  placeholder="Enter mobile number"
+                />
+              </div>
 
-              <label className="signup-label">Password</label>
-              <input
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                type="password"
-                className="signup-input password-input"
-                placeholder="Enter password"
-              />
+              <div className="signup-field">
+                <label className="signup-label">Password</label>
+                <input
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  type="password"
+                  className="signup-input password-input"
+                  placeholder="Enter password"
+                />
+              </div>
 
-              <button
-                className="signupbutton"
-                type="submit"
-                disabled={loading}
-              >
-                {loading ? "Creating..." : "Create User"}
-              </button>
+              <div className={isModal ? "modal-actions" : "signup-actions"}>
+                {isModal && (
+                  <button type="button" className="signup-cancel-btn" onClick={onClose}>
+                    Cancel
+                  </button>
+                )}
+                <button
+                  className="signupbutton"
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? "Creating..." : "Create User"}
+                </button>
+              </div>
             </form>
-
           </div>
         </div>
-
       </div>
     </div>
   );

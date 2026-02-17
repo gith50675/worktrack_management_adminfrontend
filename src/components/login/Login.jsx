@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import "../signup/Signup.css";
 import api from "../../api/api";
 import { toast } from "react-toastify";
 

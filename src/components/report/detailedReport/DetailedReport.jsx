@@ -4,31 +4,37 @@ import "./DetailedReport.css"
 const DetailedReport = () => {
   return (
     <>
-    <div className='detailed-report-title'>
-            <div className='detailed-report-head'>Detailed Report</div>
-            <div className="report-details-box">
-            <button className='detailed-report-btn'> <img src="Group 151.svg" alt="" /> <p>Project</p></button>
-            <button className='detailed-report-btn'> <img src="Vector (1).svg" alt="" /><p>Team Member</p></button>
-            <button className='detailed-report-btn'> <img src="Vector (2).svg" alt="" /><p>Date</p></button>
-            <button className='detailed-report-btn'> <img src="Vector (3).svg" alt="" /><p>Status</p></button>
-            </div>
-            <div className="report-details-box">
-                <button className='detailed-report-btn'><img src="Vector (4).svg" alt="" />Export</button>
-            </div>
-            
+      <div className='detailed-report-title'>
+        <div className='detailed-report-head'>Detailed Report</div>
+        <div className="report-details-box">
+          <button className='detailed-report-btn'> <img src="Group 151.svg" alt="" /> <p>Project</p></button>
+          <button className='detailed-report-btn'> <img src="Vector (1).svg" alt="" /><p>Team Member</p></button>
+          <button className='detailed-report-btn'> <img src="Vector (2).svg" alt="" /><p>Date</p></button>
+          <button className='detailed-report-btn'> <img src="Vector (3).svg" alt="" /><p>Status</p></button>
+        </div>
+        <div className="report-details-box">
+          <button className='detailed-report-btn'><img src="Vector (4).svg" alt="" />Export</button>
+        </div>
+
       </div>
 
-                     <table >
-          <tr>
-            <th>Project Name</th>
-            <th>Task Count</th>
-            <th>Dead Line</th>
-            <th>Status</th>
-            <th>Completed</th>
-          </tr>
+      <div className="detailed-report-table-wrapper">
+        <table className="detailed-report-table">
+          <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>Task Count</th>
+              <th>Dead Line</th>
+              <th>Status</th>
+              <th>Completed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Rows will be dynamically populated */}
+          </tbody>
+        </table>
+      </div>
 
-       </table>
-      
 
     </>
   )

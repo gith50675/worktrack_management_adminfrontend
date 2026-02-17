@@ -1,255 +1,133 @@
-/* ===============================
-   ROOT
-================================ */
-:root {
-  --bg-card: #fbf2fb;
-  --col-gap: 20px;
-  --border-soft: rgba(0, 0, 0, 0.06);
-  --shadow-soft: 0 4px 14px rgba(20, 20, 20, 0.08);
-}
-
-/* ===============================
-   TOP BAR
-================================ */
 .kanban-top {
+  padding: 32px;
+  background-color: var(--bg-main);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border-soft);
-  background: #ffffff;
+  align-items: center;
 }
 
 .kanban-title-text {
-  margin: 0;
-  font-size: 19px;
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: 0.2px;
+  color: var(--text-dark);
+  font-family: 'Outfit', sans-serif;
 }
 
-.kanban-controls {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-}
-
-/* ===============================
-   FILTERS
-================================ */
-.filter-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.filter-label {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 4px;
-}
-
-.filter-select {
-  padding: 7px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border-soft);
-  background: #ffffff;
-  font-size: 13px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.filter-select:hover {
-  border-color: rgba(0, 0, 0, 0.14);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-}
-
-/* ===============================
-   WRAPPER
-================================ */
 .kanban-wrapper-main {
-  width: 100%;
-  background: #ffffff;
+  background-color: var(--bg-main);
+  min-height: calc(100vh - 200px);
 }
 
 .kanban-content {
-  padding: 18px;
-  background: #ffffff;
+  padding: 0 32px 32px;
 }
 
-/* ===============================
-   GRID
-================================ */
 .kanban-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--col-gap);
+  gap: 24px;
   align-items: start;
 }
 
-/* ===============================
-   COLUMN
-================================ */
+.kanban-column {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.column-header {
+  padding: 8px 0 16px 0;
+}
+
 .column-header h3 {
-  margin: 0 0 14px 0;
-  font-weight: 600;
-  font-size: 15px;
-  color: #222;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
 }
 
 .column-body {
-  min-height: 520px;
-  padding: 10px;
-  border-radius: 10px;
-  background: #faf7fb;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
-  transition: background 0.2s ease;
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 1px dashed var(--border-standard);
+  border-radius: var(--radius-standard);
+  padding: 16px;
+  min-height: 600px;
+  transition: var(--transition-standard);
 }
 
-/* Drop feedback (subtle) */
 .column-over {
-  background: rgba(200, 139, 255, 0.12);
+  background-color: rgba(178, 121, 197, 0.05);
+  border-color: var(--primary-purple);
+  border-style: solid;
 }
 
-/* ===============================
-   CARD
-================================ */
 .kanban-card {
-  display: flex;
-  background: var(--bg-card);
-  border-radius: 12px;
-  margin-bottom: 14px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-small);
+  padding: 16px;
+  margin-bottom: 16px;
   box-shadow: var(--shadow-soft);
-  overflow: hidden;
-  min-height: 120px;
+  transition: var(--transition-standard);
   cursor: grab;
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease;
 }
 
 .kanban-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(20, 20, 20, 0.12);
-}
-
-/* Left color bar */
-.card-left {
-  width: 6px;
-  border-radius: 6px 0 0 6px;
-  margin-right: 12px;
-  flex-shrink: 0;
-}
-
-/* ===============================
-   CARD CONTENT
-================================ */
-.card-content {
-  padding: 14px;
-  flex: 1;
-  font-size: 13px;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--primary-purple);
 }
 
 .card-content h4 {
-  margin: 0 0 10px 0;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: #111;
+  color: var(--text-dark);
+  margin: 0 0 8px 0;
 }
 
 .card-content p {
-  margin: 6px 0;
-  color: #222;
   font-size: 13px;
-  line-height: 1.4;
+  color: var(--text-main);
+  margin: 4px 0;
 }
 
-.meta-key {
-  display: inline-block;
-  width: 90px;
+.card-content b {
+  color: var(--text-muted);
   font-weight: 600;
-  color: #444;
+  margin-right: 4px;
 }
 
-.meta-val {
-  font-weight: 400;
-  color: #222;
-}
-
-/* ===============================
-   EMPTY CARD
-================================ */
 .empty-card {
-  background: linear-gradient(180deg, #fbf2fb, #fcf7fc);
-  opacity: 0.6;
-  min-height: 120px;
-  border-radius: 12px;
-  border: 1px dashed rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  border: 1px dashed var(--border-standard);
+  border-radius: var(--radius-small);
+  color: var(--text-muted);
+  font-size: 13px;
+  background: transparent;
+  pointer-events: none;
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 980px) {
+@media (max-width: 1200px) {
   .kanban-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 1024px) {
+
+  .kanban-top,
+  .kanban-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
   .kanban-grid {
     grid-template-columns: 1fr;
   }
-
-  .kanban-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
 }
-
-
-/* ===============================
-   SMOOTH DRAG ANIMATION
-   (UI SAFE)
-================================ */
-
-/* GPU acceleration */
-.kanban-card {
-  will-change: transform;
-  transition:
-    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 180ms ease,
-    opacity 180ms ease;
-}
-
-/* While dragging */
-.kanban-card[data-dnd-kit-dragging="true"] {
-  transform: scale(1.03);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
-  opacity: 0.9;
-  cursor: grabbing;
-}
-
-/* Smooth drop-back */
-.kanban-card:not([data-dnd-kit-dragging="true"]) {
-  transition:
-    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 200ms ease;
-}
-
-/* Column hover feedback */
-.column-over {
-  transition: background 180ms ease;
-}
-
-/* Prevent text selection while dragging */
-.kanban-card,
-.column-body {
-  user-select: none;
-}
-
-/* Empty card should not block drops */
-.empty-card {
-  pointer-events: none;
-}
-

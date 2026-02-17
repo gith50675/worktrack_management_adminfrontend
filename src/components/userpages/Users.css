@@ -1,143 +1,175 @@
-.users-table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  padding: 20px;
+.users-page {
+  padding: 32px;
+  background-color: var(--bg-main);
+  min-height: calc(100vh - var(--navbar-height));
+  transition: var(--transition-standard);
 }
 
-.users-page{
-    padding: 50px;
-    padding-top: 30px;
-    font-family: Inter, sans-serif;
+.users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
+
+.users-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+  font-family: 'Outfit', sans-serif;
+}
+
+.add-user-btn {
+  background-color: var(--primary-purple);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--radius-small);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition-standard);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-user-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.users-table-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-standard);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
 .users-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 10px;
-  min-width: 900px;
+  border-collapse: collapse;
 }
 
 .users-table thead th {
   text-align: left;
-  font-weight: 600;
-  padding: 12px;
-  color: #444;
+  background-color: #faf4fc;
+  padding: 16px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .users-table tbody tr {
-  background: #fff;
-  border-radius: 8px;
+  border-bottom: 1px solid var(--border-standard);
+  transition: var(--transition-standard);
 }
 
-.users-table tbody tr:nth-child(1) {
-  background: #f6e9ff; /* highlighted row like image */
+.users-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.users-table tbody tr:hover {
+  background-color: rgba(178, 121, 197, 0.02);
 }
 
 .users-table td {
-  padding: 14px;
+  padding: 16px 20px;
+  font-size: 14px;
+  color: var(--text-main);
   vertical-align: middle;
 }
 
 .user-cell {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
+  border: 1px solid var(--border-light);
+}
+
+.user-info .name {
+  font-weight: 600;
+  color: var(--text-dark);
+  display: block;
+}
+
+.user-info .email {
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
 /* STATUS BADGES */
 .status {
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 13px;
-  text-transform: capitalize;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
 }
 
 .status.in-progress {
-  background: #e6f0ff;
-  color: #0057ff;
+  background: #eff6ff;
+  color: #1e40af;
 }
 
 .status.pending {
-  background: #fff3cd;
-  color: #856404;
+  background: #fffbeb;
+  color: #92400e;
 }
 
 .status.to-do {
-  background: #f1f1f1;
-  color: #555;
+  background: #f3f4f6;
+  color: #374151;
 }
 
 .status.task-done {
-  background: #d4edda;
-  color: #155724;
+  background: #ecfdf5;
+  color: #047857;
 }
 
 /* PRIORITY BADGES */
 .priority {
-  padding: 6px 12px;
-  border-radius: 14px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
 }
 
 .priority.high {
-  background: #ffd6dc;
-  color: #b00020;
+  background: #fef2f2;
+  color: #b91c1c;
 }
 
 .priority.medium {
-  background: #d9f7d6;
-  color: #2e7d32;
+  background: #f0fdf4;
+  color: #15803d;
 }
 
 .priority.low {
-  background: #dde7ff;
-  color: #1e40af;
+  background: #eff6ff;
+  color: #1d4ed8;
 }
 
-/* MOBILE */
+@media (max-width: 1024px) {
+  .users-page {
+    margin-left: 0;
+    padding: 20px;
+  }
+}
+
 @media (max-width: 768px) {
-  .users-table {
-    min-width: 100%;
+  .users-table-wrapper {
+    overflow-x: auto;
   }
-
-  .users-table thead {
-    display: none;
-  }
-
-  .users-table tbody tr {
-    display: block;
-    margin-bottom: 16px;
-  }
-
-  .users-table td {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-  }
-}
-.users-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.add-user-btn {
-  background: #4f46e5;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.add-user-btn:hover {
-  background: #4338ca;
 }

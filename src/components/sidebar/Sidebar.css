@@ -1,145 +1,110 @@
-/* Sidebar layout */
 .sidebar-container {
+  width: var(--sidebar-width);
   height: 100vh;
-  width: 300px; /* fixed width per your Figma */
-  background-color:  #FAF4FC;
-;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
   position: fixed;
   left: 0;
   top: 0;
+  padding-top: 40px;
+  border-right: 1px solid var(--glass-border);
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-standard);
 }
 
-/* Logo */
 .sidebar-logo {
   display: flex;
   justify-content: center;
-  padding: 20px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 0 0 40px 0;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 24px;
 }
+
 .sidebar-logo img {
-  height: 73px;
-  width: 99px;
+  height: 60px;
+  width: auto;
   object-fit: contain;
 }
 
-/* Menus */
 .sidebar-menus {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 16px;
   flex: 1;
-  padding: 16px 20px;
   overflow-y: auto;
 }
 
 .menu-box {
-  height: 50px;
-  width: 70%;
-  border-radius: 12px;
+  height: 44px;
+  border-radius: var(--radius-small);
   display: flex;
   align-items: center;
-  padding: 0 16px;
-  margin-bottom: 8px;
+  padding: 0 12px;
   cursor: pointer;
-  transition: all 0.18s ease;
-  background-color: transparent;
+  transition: var(--transition-standard);
   text-decoration: none;
-  color: inherit;
+  background-color: transparent;
+  color: var(--text-muted);
 }
 
 .menu-box:hover {
-  background-color: #f5f5f5;
+  background-color: var(--bg-main);
+  color: var(--primary-dark);
 }
 
-/* Active gradient */
 .menu-box.active {
-  background: linear-gradient(90deg, #E5B6F5, #B279C5);
-  color: #fff;
+  background-color: rgba(178, 121, 197, 0.1);
+  color: var(--primary-dark);
 }
 
-/* Icon & text */
+.menu-box.active .menu-text {
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.menu-box.active .menu-icon {
+  color: var(--primary-dark);
+}
+
 .menu-icon {
-  font-size: 18px;
+  width: 18px;
+  height: 18px;
   margin-right: 12px;
-  color: #6b7280;
   flex-shrink: 0;
+  opacity: 0.7;
+  color: inherit;
 }
 
 .menu-text {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
-  color: #6b7280;
-  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
 }
 
-/* make icons/text white when active */
-.menu-box.active .menu-icon,
-.menu-box.active .menu-text {
-  color: white;
-}
-
-/* Logout area */
 .sidebar-logout {
-  padding: 20px;
-  border-top: 1px solid #f0f0f0;
-  
-}
-
-.menu-box.logout {
-  margin-bottom: 0;
-
+  padding: 16px;
+  border-top: 1px solid var(--border-standard);
+  margin-top: auto;
 }
 
 .menu-box.logout:hover {
   background-color: #fee2e2;
+  color: #ef4444;
 }
 
-.menu-box.logout:hover .menu-icon,
-.menu-box.logout:hover .menu-text {
-  color: #dc2626;
+.menu-box.logout:hover .menu-icon {
+  color: #ef4444;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .sidebar-container {
-    width: 60px;
+    transform: translateX(-100%);
   }
 
-  .sidebar-logo img {
-    height: 40px;
-    width: auto;
-  }
-
-  .sidebar-menus {
-    padding: 10px;
-  }
-
-  .menu-box {
-    width: 100%;
-    justify-content: center;
-    padding: 0;
-    border-radius: 8px;
-  }
-
-  .menu-text {
-    display: none;
-  }
-
-  .menu-icon {
-    margin-right: 0;
-    font-size: 20px;
-  }
-
-  .menu-box.active {
-    width: 100%;
-  }
-
-  .sidebar-logout {
-    padding: 10px 5px;
-  }
-
-  .menu-box.logout {
-    justify-content: center;
+  .sidebar-container.open {
+    transform: translateX(0);
   }
 }

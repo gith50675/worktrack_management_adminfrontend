@@ -1,19 +1,19 @@
-// src/components/PlainSvgGraph.jsx
+// src/components/report/reportGraph/ReportGraph.jsx
 import React, { useRef, useState, useMemo } from "react";
 import ReportGraphContainer from "../../ReportGraphContainer";
 
 const DATA = [10, 6, 12, 10, 8, 6, 12];
 const LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-const LINE_COLOR = "#717FFE";
-const GRAD_TOP = "#E5B6F5";
-const GRAD_MID = "#D4B3FF";
+const LINE_COLOR = "#b279c5";
+const GRAD_TOP = "rgba(178, 121, 197, 0.2)";
+const GRAD_MID = "rgba(178, 121, 197, 0.05)";
 
 export default function ReportGraph({
   data = DATA,
   labels = LABELS,
-  height = 320,
-  padding = 50,
+  height = 360,
+  padding = 60,
 }) {
   const svgRef = useRef(null);
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -30,8 +30,7 @@ export default function ReportGraph({
   const points = useMemo(() => {
     return data.map((v, i) => {
       const x = padding + (i / (count - 1)) * innerW;
-      const y =
-        padding + (1 - (v - min) / (max - min)) * innerH;
+      const y = padding + (1 - (v - min) / (max - min)) * innerH;
       return { x, y, v, label: labels[i] || "" };
     });
   }, [data, labels, count, padding, innerW, innerH, min, max]);
@@ -56,24 +55,35 @@ export default function ReportGraph({
   }
 
   const linePath = catmullRom2bezier(points);
-  const areaPath = `${linePath} L ${
-    points[points.length - 1].x
-  },${viewH - padding} L ${points[0].x},${
-    viewH - padding
-  } Z`;
+  const areaPath = `${linePath} L ${points[points.length - 1].x
+    },${viewH - padding} L ${points[0].x},${viewH - padding
+    } Z`;
 
-  const ySteps = [0, 2, 4, 6, 8, 10, 12];
+  const ySteps = [0, 3, 6, 9, 12];
 
   return (
     <div
       style={{
-        position: "relative",
-        margin: "5%",
+        margin: "32px 0",
         width: "100%",
-        maxWidth: 1000,
+        padding: "24px",
+        backgroundColor: "var(--bg-card)",
+        borderRadius: "var(--radius-standard)",
+        border: "1px solid var(--border-standard)",
+        boxShadow: "var(--shadow-soft)",
       }}
     >
-      <ReportGraphContainer />
+      <div style={{ marginBottom: "24px" }}>
+        <h3 style={{
+          margin: 0,
+          fontSize: "18px",
+          fontWeight: 700,
+          color: "var(--text-dark)",
+          fontFamily: "'Outfit', sans-serif"
+        }}>Performance Trends</h3>
+        <p style={{ margin: "4px 0 0 0", fontSize: "13px", color: "var(--text-muted)" }}>Weekly activity overview</p>
+      </div>
+
       <svg
         ref={svgRef}
         viewBox={`0 0 ${viewW} ${viewH}`}
@@ -83,9 +93,8 @@ export default function ReportGraph({
       >
         <defs>
           <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="30%" stopColor={GRAD_TOP} stopOpacity="0.9" />
-            <stop offset="80%" stopColor={GRAD_MID} stopOpacity="0.35" />
-            <stop offset="100%" stopColor="rgba(196,146,255,0)" />
+            <stop offset="0%" stopColor={GRAD_TOP} />
+            <stop offset="100%" stopColor={GRAD_MID} />
           </linearGradient>
         </defs>
 
@@ -99,16 +108,18 @@ export default function ReportGraph({
                 x2={viewW - padding}
                 y1={y}
                 y2={y}
-                stroke="#eee"
+                stroke="var(--border-light)"
+                strokeDasharray="4 4"
               />
               <text
-                x={padding - 20}
+                x={padding - 15}
                 y={y + 4}
-                fontSize="14"
+                fontSize="12"
+                fontWeight="600"
                 textAnchor="end"
-                fill="#777"
+                fill="var(--text-muted)"
               >
-                {val.toString().padStart(2, "0")}
+                {val}
               </text>
             </g>
           );
@@ -122,7 +133,7 @@ export default function ReportGraph({
           d={linePath}
           fill="none"
           stroke={LINE_COLOR}
-          strokeWidth={3}
+          strokeWidth={4}
           strokeLinecap="round"
         />
 
@@ -131,10 +142,11 @@ export default function ReportGraph({
           <text
             key={i}
             x={p.x}
-            y={viewH - padding + 25}
+            y={viewH - padding + 30}
             textAnchor="middle"
-            fontSize="16"
-            fill="#444"
+            fontSize="12"
+            fontWeight="600"
+            fill="var(--text-muted)"
           >
             {labels[i]}
           </text>
@@ -150,10 +162,15 @@ export default function ReportGraph({
             <circle
               cx={p.x}
               cy={p.y}
-              r={hoverIndex === i ? 9 : 6}
+              r={hoverIndex === i ? 10 : 0}
+              fill={LINE_COLOR}
+              style={{ transition: "r 0.2s ease" }}
+            />
+            <circle
+              cx={p.x}
+              cy={p.y}
+              r={hoverIndex === i ? 6 : 0}
               fill="#fff"
-              stroke={LINE_COLOR}
-              strokeWidth={2}
               style={{ transition: "r 0.2s ease" }}
             />
 
@@ -161,19 +178,19 @@ export default function ReportGraph({
             {hoverIndex === i && (
               <g>
                 <rect
-                  x={p.x - 40}
-                  y={p.y - 45}
-                  width={80}
-                  height={30}
-                  rx={6}
-                  fill="#222"
-                  opacity={0.9}
+                  x={p.x - 45}
+                  y={p.y - 50}
+                  width={90}
+                  height={34}
+                  rx={8}
+                  fill="var(--text-dark)"
                 />
                 <text
                   x={p.x}
-                  y={p.y - 25}
+                  y={p.y - 28}
                   textAnchor="middle"
-                  fontSize="13"
+                  fontSize="12"
+                  fontWeight="700"
                   fill="#fff"
                 >
                   {p.label}: {p.v}

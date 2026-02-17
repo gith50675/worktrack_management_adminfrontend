@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./WorkersDetailsAll.css";
 import api from "../../../api/api";
 
@@ -6,21 +6,22 @@ const WorkersDetailsAll = () => {
 
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchWorkers();
   }, []);
 
-const fetchWorkers = async () => {
-  try {
-    const res = await api.get("admin_app/view_tasks");
-    setRows(res.data.tasks);   // 👈 tasks list set
-  } catch (err) {
-    console.log("Failed to load workers", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  const fetchWorkers = async () => {
+    try {
+      const res = await api.get("admin_app/tasks/");
+      setRows(res.data.tasks);   // 👈 tasks list set
+    } catch (err) {
+      console.log("Failed to load workers", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   if (loading) return <p>Loading...</p>;
@@ -68,8 +69,16 @@ const fetchWorkers = async () => {
                     </div>
 
                     <div className="user-name">
-                      {row.assigned_to?.length > 0 
-                        ? row.assigned_to.map(u => `${u.first_name} ${u.last_name}`).join(", ")
+                      {row.assigned_to?.length > 0
+                        ? row.assigned_to.map((u, idx) => (
+                          <span
+                            key={u.id}
+                            onClick={() => navigate(`/employeeproductivity/${u.id}`)}
+                            style={{ cursor: 'pointer', textDecoration: 'underline' }}
+                          >
+                            {u.first_name} {u.last_name}{idx < row.assigned_to.length - 1 ? ", " : ""}
+                          </span>
+                        ))
                         : "—"
                       }
                     </div>
@@ -85,11 +94,10 @@ const fetchWorkers = async () => {
 
                   <td className="dashboard-td">
                     <span
-                      className={`status-pill ${
-                        (row.status || "")
-                          .toLowerCase()
-                          .replace(" ", "-")
-                      }`}
+                      className={`status-pill ${(row.status || "")
+                        .toLowerCase()
+                        .replace(" ", "-")
+                        }`}
                     >
                       {row.status || "—"}
                     </span>
@@ -101,9 +109,8 @@ const fetchWorkers = async () => {
 
                   <td className="dashboard-td">
                     <span
-                      className={`priority-pill ${
-                        (row.priority || "").toLowerCase()
-                      }`}
+                      className={`priority-pill ${(row.priority || "").toLowerCase()
+                        }`}
                     >
                       {row.priority || "—"}
                     </span>

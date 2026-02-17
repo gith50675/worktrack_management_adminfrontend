@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
 // logo path you uploaded (project-local path from your environment)
-const logoUrl = "/mnt/data/Screenshot 2025-11-24 103401.png";
+const logoUrl = "/tron-sidebar-logo.png";
 
 import { IoDocumentOutline, IoHomeOutline, IoSettingsOutline } from "react-icons/io5";
 import { FaRegUser, FaUser } from "react-icons/fa";
@@ -32,22 +32,22 @@ export default function Sidebar() {
 
   const isAdmin = userRole === "admin" || userRole === "super_admin";
 
-const logout = async () => {
-  try {
-    await api.post("/admin_app/logout/", {
-      refresh: localStorage.getItem("refresh"),
-    });
-  } catch {}
+  const logout = async () => {
+    try {
+      await api.post("/admin_app/logout/", {
+        refresh: localStorage.getItem("refresh"),
+      });
+    } catch { }
 
-  localStorage.clear();
-  navigate("/login");
-};
+    localStorage.clear();
+    navigate("/login");
+  };
 
 
   return (
     <aside className="sidebar-container" aria-label="Main sidebar">
       <div className="sidebar-logo">
-        <img src={logoUrl} alt="Logo" />
+        <img src={logoUrl} alt="Logooooooooo" />
       </div>
 
       <div className="sidebar-menus">
@@ -56,7 +56,7 @@ const logout = async () => {
           <img className="menu-icon" src="Vector.svg" alt="" />
           <span className="menu-text">Dashboard</span>
         </NavLink>
-<NavLink to="/users" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
+        <NavLink to="/users" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
           {/* <FaRegUser className="menu-icon" /> */}
           <FaUser className="menu-icon" />
           <span className="menu-text">Users</span>
@@ -79,13 +79,13 @@ const logout = async () => {
           <span className="menu-text">Projects</span>
         </NavLink>
 
-        
-          <NavLink to="/productivity" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
-            {/* <AiOutlineBranches className="menu-icon" /> */}
-            <img className="menu-icon" src="Group (1).svg" alt="" />
-            <span className="menu-text">Productivity</span>
-          </NavLink>
-        
+
+        <NavLink to="/productivity" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
+          {/* <AiOutlineBranches className="menu-icon" /> */}
+          <img className="menu-icon" src="Group (1).svg" alt="" />
+          <span className="menu-text">Productivity</span>
+        </NavLink>
+
 
         <NavLink to="/report" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
           {/* <RiPieChart2Fill className="menu-icon" /> */}
@@ -95,7 +95,7 @@ const logout = async () => {
 
         <NavLink to="/settings" className={({ isActive }) => `menu-box ${isActive ? "active" : ""}`}>
           {/* <HiClock className="menu-icon" /> */}
-          <IoSettingsOutline className="menu-icon"/>
+          <IoSettingsOutline className="menu-icon" />
           <span className="menu-text">Settings</span>
         </NavLink>
 

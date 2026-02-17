@@ -5,7 +5,7 @@ import ProductivityPieChart from "../components/productivity/productivity piecha
 import ProductivityAllTasks from "../components/productivity/productivityalltasks/ProductivityAllTasks"
 import "./EmployeeProductivityPage.css"
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import api from "../api/api";
 
 const EmployeeProductivityPage = () => {
   const { id } = useParams();
@@ -16,31 +16,28 @@ const EmployeeProductivityPage = () => {
   useEffect(() => {
     setLoading(true);
 
-    fetch(`http://127.0.0.1:8000/admin_app/employee_productivity/${id}/`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access")}`,
-      },
-    })
+    api.get(`admin_app/employees/${id}/productivity/`)
       .then(res => {
-        if (!res.ok) throw new Error("Failed to load employee data");
-        return res.json();
+        setUserData(res.data);
       })
-      .then(setUserData)
-      .catch(err => setError(err.message))
+      .catch(err => {
+        const msg = err.response?.data?.error || err.message;
+        setError(msg);
+      })
       .finally(() => setLoading(false));
   }, [id]);
 
   if (loading) return <p>Loading employee productivity...</p>;
   if (error) return <p>{error}</p>;
   if (!userData) return <p>No data found</p>;
-// jalal
+  // jalal
   return (
     <div className="employee-productivity-page">
       <EmployeeProductivity user={userData.user} />
 
       <div className="employee-productivity-main">
         <div className="employee-productivity-left">
-<RecentTasks tasks={userData?.user?.recent_tasks || []} />
+          <RecentTasks tasks={userData?.user?.recent_tasks || []} />
         </div>
 
         <div className="employee-productivity-right">

@@ -1,130 +1,118 @@
-.newtask-container{
-  display: flex;
-  justify-content: space-between;
+.new-task-page-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.newtask-title{
-  width: 100%;
-  height: 55px;
-  margin-top: 35px;
-  background-color: #faf4fc;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 0 30px;
-   font-family:inter;
-    font-weight:500px;
-    font-style:medium;
-    font-size: 20px
 
+/* Modal Context */
+.new-task-modal-body .newtask-container {
+  grid-template-columns: 1fr;
+  /* Solid design often favors single column for forms */
+  gap: 24px;
 }
-.newtask-leftform{
-  margin-left: 20px;
+
+.newtask-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
-.newtask-input{
-    border-radius: 2px;
-    background-color:white;
-    width: 500px;
-    height: 50px;
-      border: 1px solid #ded7e2;
-    margin-bottom: 4px;
-    
+
+.newtask-form-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
-.description{
- min-height: 200px;   
-  width: 500px;         
-  padding: 12px;       
-  font-size: 14px;     
-  border: 1px solid #ded7e2;
-  border-radius: 6px;
-}
-label{
+
+.form-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
   display: block;
-  margin-bottom: 5px;
-  margin-top: 20px;
-   font-family:inter;
-    font-weight:400px;
-
-    font-size: 18px
-}
-.newtask-rightform{
-margin-right: 20px;
-}
-.date-hour{
-display: flex;
-justify-content: space-between;
-}
-.date{
-border-radius: 2px;
-    background-color:white;
-    width: 300px;
-    height: 50px;
-    border: 1px solid #ded7e2;
-    margin-bottom: 4px;
-}
-.esthour{
-border-radius: 2px;
-    background-color:white;
-    width: 100px;
-    height: 50px;
-    border: 1px solid #ded7e2;
-    margin-bottom: 4px;
 }
 
-.priority-link-task{
-display:flex;
-gap:20px;
-margin-top:60px;
-}
-.task-priority{
-border-radius: 2px;
-    background-color:white;
-    width: 100px;
-    height: 50px;
-    border: 1px solid #ded7e2;
-    margin-bottom: 4px;  
-   display: flex;
-  align-items: center;
-  justify-content: center;  
-}
-.task-attachment-link{
-border-radius: 2px;
-    background-color:white;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #ded7e2;
-    margin-bottom: 4px;
-    display: flex;
-  align-items: center;
-  justify-content: center;    
-}
-.form-buttons{
+.newtask-input,
+.description-input,
+.date-input,
+.esthour-input {
   width: 100%;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 15px;
+  color: #1e293b;
+  height: 48px;
+}
+
+.newtask-input:focus,
+.description-input:focus,
+.date-input:focus,
+.esthour-input:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.description-input {
+  height: 150px !important;
+  padding: 12px !important;
+  resize: none;
+}
+
+.date-hour-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.modal-actions-bar {
   display: flex;
-  justify-content: flex-end;  
-  gap: 12px;                  
-  margin-top: 30px;  
-  margin-right: 30px;
-       
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
 }
 
-.cancel-btn {
-  padding: 8px 20px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fff;
+.btn-cancel {
+  padding: 12px 24px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
   cursor: pointer;
-   width: 100px;
-  height: 40px;  
 }
 
-.save-btn {
-  padding: 8px 20px;
-  border-radius: 6px;
-  background: #c68be0;   
+.btn-save {
+  padding: 12px 36px;
+  background: #7c3aed;
   border: none;
-  color: #fff;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
   cursor: pointer;
-  width: 100px;
-  height: 40px; 
- 
+  box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
+}
+
+.btn-save:hover:not(:disabled) {
+  background: #6d28d9;
+}
+
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .new-task-modal-body .newtask-container {
+    padding: 0;
+  }
 }

@@ -1,174 +1,181 @@
 .navbar {
+  height: var(--navbar-height);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 24px;
-  background-color: #faf4fc;
-  width: 100%;
-  height: 58px;
-  position: fixed;
+  gap: 12px;
+  justify-content: space-evenly;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
   top: 0;
-  left: 0;
-  z-index: 2000;
-  box-sizing: border-box;
+  z-index: 900;
+  transition: var(--transition-standard);
 }
 
 .logo-box {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+  flex: 0 0 250px;
+  /* Give it a fixed basis to balance with notification box */
+}
+
+.hamburger-icon {
+  display: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text-dark);
 }
 
 .tron-logo {
-  width: 40px;
-  height: 40px;
-  margin-left: 10px;
+  height: 32px;
+  width: auto;
 }
 
 .tron-logo2 {
-  width: 80px;
-  height: 40px;
+  height: 32px;
+  width: auto;
 }
 
-/* Search */
 .search-box {
   display: flex;
   align-items: center;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-small);
+  height: 42px;
+  padding: 0 16px;
+  gap: 12px;
+  width: 100%;
+  max-width: 700px;
+  /* Slightly wider for modern feel */
+  margin: 0 24px;
+  transition: var(--transition-standard);
+}
+
+.search-box:focus-within {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 4px rgba(178, 121, 197, 0.1);
   background-color: #ffffff;
-  border-radius: 20px;
-  height: 35px;
-  padding: 7px 10px;
-  gap: 5px;
-  width: 500px;
-  max-width: 40vw;
-  min-width: 220px;
-  margin: 0 10px;
-  flex: 1;
 }
 
 .search-icon {
-  height: 22px;
-  width: 25px;
+  font-size: 18px;
+  color: var(--text-muted);
 }
 
 .search-input {
   border: none;
   outline: none;
-  font-size: 16px;
-  width: 100%;
+  font-size: 14px;
   background: transparent;
+  width: 100%;
+  color: var(--text-main);
 }
 
-/* Right side */
 .notification-box {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 28px;
+  flex: 0 0 250px;
+  /* Match logo-box basis for centering the search bar */
+  justify-content: flex-end;
 }
 
 .notification-link {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   text-decoration: none;
-  color: inherit;
+  color: var(--text-main);
+  transition: var(--transition-standard);
 }
 
-.notification-link.active .notification-text {
-  font-weight: 600;
+.notification-link:hover {
+  color: var(--primary-purple);
 }
 
 .notification-icon {
-  height: 24px;
-  width: 24px;
+  font-size: 22px;
 }
 
 .notification-text {
-  font-family: inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  color: black;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-/* Profile dropdown */
 .profile-container {
   position: relative;
-  display: inline-block;
 }
 
 .profile-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  border: 2px solid var(--border-light);
   cursor: pointer;
+  transition: var(--transition-standard);
+}
+
+.profile-icon:hover {
+  border-color: var(--primary-purple);
 }
 
 .dropdown-box {
   position: absolute;
-  top: 50px;
+  top: calc(100% + 12px);
   right: 0;
-  background: white;
-  border: 1px solid #ccc;
-  width: 140px;
-  border-radius: 5px;
-  padding: 8px 0;
-  text-align: left;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  background: var(--bg-card);
+  border: 1px solid var(--border-standard);
+  width: 180px;
+  border-radius: var(--radius-small);
+  padding: 8px;
+  box-shadow: var(--shadow-medium);
+  z-index: 1000;
 }
 
 .dropdown-box p {
-  margin: 0;
-  padding: 10px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--text-main);
   cursor: pointer;
+  transition: var(--transition-standard);
 }
 
 .dropdown-box p:hover {
-  background-color: #f0f0f0;
+  background-color: var(--bg-main);
+  color: var(--primary-dark);
 }
 
-.logout {
-  color: red;
-  font-weight: 600;
+.dropdown-box p.logout {
+  color: #ef4444;
 }
 
-.setting-navlink {
-  display: flex;
-  text-decoration: none;
-  align-items: center;
+.dropdown-box p.logout:hover {
+  background-color: #fee2e2;
 }
 
-/* Hamburger Icon */
-.hamburger-icon {
-  display: none;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  margin-right: 10px;
-  color: #333;
-}
+@media (max-width: 1024px) {
+  .navbar {
+    margin-left: 0;
+    padding: 0 20px;
+  }
 
-/* Show hamburger on mobile/tablet */
-@media (max-width: 907px) {
   .hamburger-icon {
     display: block;
   }
+}
 
+@media (max-width: 768px) {
   .search-box {
-    width: auto;
+    width: 200px;
   }
 
   .notification-text {
-    display: none;
-  }
-
-  .tron-logo2 {
-    display: none;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 480px) {
-  .search-box {
     display: none;
   }
 }

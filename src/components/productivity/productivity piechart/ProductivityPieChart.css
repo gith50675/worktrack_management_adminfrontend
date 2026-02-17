@@ -1,41 +1,39 @@
 .productivity-piechart-container {
   width: 100%;
-  max-width: 550px;
-  min-height: 326px;
-  background-color: #faf4fc;
-  margin-top: 25px;
-  border-radius: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-standard);
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-standard);
+  animation: slideUp 0.5s ease-out forwards;
 }
 
-/* title row */
+.productivity-piechart-container:hover {
+  border-color: var(--primary-purple);
+  box-shadow: var(--shadow-hover);
+}
+
 .productivity-title {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  margin-top: 25px;
-  font-family: inter;
-  font-weight: 500;
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  font-family: 'Outfit', sans-serif;
+  margin-bottom: 24px;
 }
 
-/* body: chart + legend */
 .productivity-body {
   display: flex;
   align-items: center;
-  gap: 22px;
-  padding: 12px 24px 18px;
+  justify-content: center;
+  gap: 32px;
 }
 
-/* svg sizing helper */
 .productivity-pie-svg {
-  display: block;
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
 }
 
-/* legend */
 .productivity-legend {
   list-style: none;
   padding: 0;
@@ -43,54 +41,35 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-width: 140px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .legend-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  display: inline-block;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02) inset;
 }
 
 .legend-text {
-  font-size: 14px;
-  color: #2b2b2b;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
 .legend-percent {
-  color: #6f6a78;
-  margin-left: 8px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
 }
 
-/* tablet */
-@media (max-width: 1024px) {
-  .productivity-piechart-container {
-    max-width: 100%;
-  }
-
-  .productivity-body {
-    gap: 18px;
-    padding: 12px 18px 16px;
-  }
-}
-
-/* mobile: stack chart over legend */
-@media (max-width: 768px) {
-  .productivity-piechart-container {
-    margin-top: 16px;
-  }
-
+@media (max-width: 1200px) {
   .productivity-body {
     flex-direction: column;
-    align-items: center;
+    gap: 24px;
   }
 }

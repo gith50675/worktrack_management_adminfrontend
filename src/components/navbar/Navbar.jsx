@@ -12,8 +12,8 @@ const Navbar = ({ toggleSidebar }) => {
         <nav className="navbar">
             <div className='logo-box'>
                 <RxHamburgerMenu className="hamburger-icon" onClick={toggleSidebar} />
-                <img className='tron-logo' src="tron...-02.png" alt="" />
-                <img className='tron-logo2' src="tron...-01.png" alt="" />
+                {/* <img className='tron-logo' src="/tron-sidebar-logo.png" alt="Logo" /> */}
+                <img className='tron-logo2' src="/tron-logo-navbar.png" alt="Logo" />
             </div>
             <div className='search-box'>
                 <CiSearch className='search-icon' />

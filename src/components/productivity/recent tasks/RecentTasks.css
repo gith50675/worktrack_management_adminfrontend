@@ -1,93 +1,69 @@
 .recent-task-container {
   width: 100%;
-  max-width: 550px;
-  min-height: 326px;
-  background-color: #faf4fc;
-  border-radius: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-standard);
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-standard);
+  animation: slideUp 0.5s ease-out forwards;
 }
 
-/* header */
+.recent-task-container:hover {
+  border-color: var(--primary-purple);
+  box-shadow: var(--shadow-hover);
+}
+
 .recent-title {
   display: flex;
   justify-content: space-between;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  margin-top: 25px;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .recent-tasks {
-  font-family: inter;
-  font-weight: 500;
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  font-family: 'Outfit', sans-serif;
 }
 
 .tasks-details {
-  font-family: inter;
-  font-weight: 400;
-  font-size: 14px;
-  color: #808080;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
-/* divider only inside this card */
 .recent-task-container hr {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-/* list */
-.task-and-status {
-  padding-left: 15px;
-  padding-right: 15px;
+  border: none;
+  border-top: 1px solid var(--border-standard);
+  margin: 16px 0;
 }
 
 .task-status {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.task-status:last-child {
+  border-bottom: none;
 }
 
 .productivity-task {
-  font-family: inter;
-  font-weight: 500;
-  font-size: 19.68px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
 .productivity-task-status {
-  font-family: inter;
-  font-weight: 500;
-  font-size: 19.68px;
-  background-color: #b981cb;
-  padding: 5px;
-  border-radius: 6px;
-}
-
-/* tablet */
-@media (max-width: 1024px) {
-  .recent-task-container {
-    max-width: 100%;
-  }
-}
-
-/* mobile */
-@media (max-width: 768px) {
-  .recent-title {
-    padding-left: 18px;
-    padding-right: 18px;
-    margin-top: 16px;
-  }
-
-  .recent-task-container hr {
-    margin-left: 12px;
-    margin-right: 12px;
-  }
-
-  .task-status {
-    padding: 8px;
-  }
-
-  .productivity-task,
-  .productivity-task-status {
-    font-size: 17px;
-  }
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: rgba(178, 121, 197, 0.1);
+  color: var(--primary-dark);
 }
