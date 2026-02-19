@@ -71,7 +71,7 @@ const Login = () => {
           <div className="signup-logo-box">
             <img
               className="tron-logo"
-              src="Component 180.png"
+              src="\tron...-02.png"
               alt="Tron Logo"
             />
           </div>
