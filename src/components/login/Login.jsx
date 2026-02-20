@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import "../signup/Signup.css";
 import api from "../../api/api";
 import { toast } from "react-toastify";
@@ -14,6 +15,7 @@ const Login = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (
@@ -74,6 +76,24 @@ const Login = () => {
               src="\tron...-02.png"
               alt="Tron Logo"
             />
+            {/* <h1 style={{
+              color: 'white',
+              fontSize: '42px',
+              fontWeight: '800',
+              margin: '0',
+              letterSpacing: '2px',
+              fontFamily: "'Outfit', sans-serif"
+            // }}>TRON</h1>
+            <p style={{
+              color: 'white',
+              fontSize: '18px',
+              fontWeight: '600',
+              margin: '0',
+              letterSpacing: '4px',
+              opacity: '0.9',
+              fontFamily: "'Outfit', sans-serif",
+              fontStyle: 'italic'
+            // }}>ACADEMY</p> */}
           </div>
         </div>
 
@@ -84,27 +104,52 @@ const Login = () => {
               <Link to="/signup">
                 <p className="inactive">Sign Up</p>
               </Link>
-              <p className="signupname">Admin Login</p>
+              <p className="signupname">Login</p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <label className="signup-label">Email</label>
-              <input
-                name="email"
-                type="email"
-                className="signup-input"
-                value={formData.email}
-                onChange={handleChange}
-              />
+              <div className="signup-field">
+                <label className="signup-label">Name</label>
+                <input
+                  name="email"
+                  type="email"
+                  className="signup-input"
+                  placeholder="Enter your name or email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
 
-              <label className="signup-label">Password</label>
-              <input
-                name="password"
-                type="password"
-                className="signup-input password-input"
-                value={formData.password}
-                onChange={handleChange}
-              />
+              <div className="signup-field">
+                <label className="signup-label">Password</label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    className="signup-input"
+                    placeholder="Enter your password"
+                    style={{ marginBottom: '0' }}
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <div
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '20px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      cursor: 'pointer',
+                      color: '#94a3b8',
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  </div>
+                </div>
+              </div>
+
 
               <button
                 className="signupbutton"
@@ -120,6 +165,7 @@ const Login = () => {
 
       </div>
     </div>
+
   );
 };
 
